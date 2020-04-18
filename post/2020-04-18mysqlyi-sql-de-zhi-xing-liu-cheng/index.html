@@ -1,22 +1,95 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://RookieYan.github.io</id>
-    <title>Gridea</title>
-    <updated>2020-04-18T17:25:57.010Z</updated>
-    <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://RookieYan.github.io"/>
-    <link rel="self" href="https://RookieYan.github.io/atom.xml"/>
-    <subtitle>温故而知新</subtitle>
-    <logo>https://RookieYan.github.io/images/avatar.png</logo>
-    <icon>https://RookieYan.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2020, Gridea</rights>
-    <entry>
-        <title type="html"><![CDATA[[2020-04-18]MySQL（一）SQL的执行流程]]></title>
-        <id>https://RookieYan.github.io/post/2020-04-18mysqlyi-sql-de-zhi-xing-liu-cheng/</id>
-        <link href="https://RookieYan.github.io/post/2020-04-18mysqlyi-sql-de-zhi-xing-liu-cheng/">
-        </link>
-        <updated>2020-04-18T14:28:24.000Z</updated>
-        <content type="html"><![CDATA[<p>  之前的由于不小心把所有的博客都删了，所以从0开始重新写吧。因为最近在看MySQL和MongoDB相关的，这篇就先从MySQL开始了.. 后续会继续补上MongoDB的内容..<br>
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>[2020-04-18]MySQL（一）SQL的执行流程 | Gridea</title>
+<link rel="shortcut icon" href="https://RookieYan.github.io/favicon.ico?v=1587230753492">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://RookieYan.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="[2020-04-18]MySQL（一）SQL的执行流程 | Gridea - Atom Feed" href="https://RookieYan.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="  之前的由于不小心把所有的博客都删了，所以从0开始重新写吧。因为最近在看MySQL和MongoDB相关的，这篇就先从MySQL开始了.. 后续会继续补上MongoDB的内容..
+  这篇主要是讲一下MySQL的基础.. 包括语句的执行流程..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://RookieYan.github.io">
+  <img class="avatar" src="https://RookieYan.github.io/images/avatar.png?v=1587230753492" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              [2020-04-18]MySQL（一）SQL的执行流程
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-04-18
+              </span>
+              <span>
+                11 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>  之前的由于不小心把所有的博客都删了，所以从0开始重新写吧。因为最近在看MySQL和MongoDB相关的，这篇就先从MySQL开始了.. 后续会继续补上MongoDB的内容..<br>
   这篇主要是讲一下MySQL的基础.. 包括语句的执行流程..</p>
 <p><img src="https://RookieYan.github.io/post-images/1587222171337.png" alt="" loading="lazy"><br>
   首先简单介绍一下MySQL的基础结构图，可以从这张图清楚的看出一条语句在MySQL的各个功能模块中的执行过程。<br>
@@ -97,16 +170,88 @@ ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that 
 <p>  至此，这个语句就执行完成了。对于有索引的表，执行的逻辑也差不多。第一次调用的是“取满足条件的第一行”这个接口，之后循环取“满足条件的下一行”这个接口，这些接口都是引擎中已经定义好的。<br>
   你会在数据库的慢查询日志中看到一个 rows_examined 的字段，表示这个语句执行过程中扫描了多少行。这个值就是在执行器每次调用引擎获取数据行的时候累加的。<br>
   在有些场景下，执行器调用一次，在引擎内部则扫描了多行，因此引擎扫描行数跟 rows_examined 并不是完全相同的。我们后面会专门有一篇文章来讲存储引擎的内部机制，里面会有详细的说明。</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[[2020-04-11]重新开始]]></title>
-        <id>https://RookieYan.github.io/post/2020-04-11chong-xin-kai-shi/</id>
-        <link href="https://RookieYan.github.io/post/2020-04-11chong-xin-kai-shi/">
-        </link>
-        <updated>2020-04-11T14:49:04.000Z</updated>
-        <content type="html"><![CDATA[<p>  之前因为搭了一个Ngrok，被黑客扫到了，把电脑黑了。然后今天重装了系统，格式化了硬盘，一不小心把博客也都清了... 没办法...  回不去的就留在过去吧...  重新写....</p>
-<p>  加油...</p>
-]]></content>
-    </entry>
-</feed>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E8%BF%9E%E6%8E%A5%E5%99%A8"><strong>连接器</strong></a></li>
+<li><a href="#%E6%9F%A5%E8%AF%A2%E7%BC%93%E5%AD%98"><strong>查询缓存</strong></a></li>
+<li><a href="#%E5%88%86%E6%9E%90%E5%99%A8"><strong>分析器</strong></a></li>
+<li><a href="#%E4%BC%98%E5%8C%96%E5%99%A8"><strong>优化器</strong></a></li>
+<li><a href="#%E6%89%A7%E8%A1%8C%E5%99%A8"><strong>执行器</strong></a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://RookieYan.github.io/post/2020-04-11chong-xin-kai-shi/">
+              <h3 class="post-title">
+                [2020-04-11]重新开始
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://RookieYan.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
