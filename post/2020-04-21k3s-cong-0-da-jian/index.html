@@ -1,0 +1,258 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>[2020-04-21]K3S从0搭建 | Gridea</title>
+<link rel="shortcut icon" href="https://RookieYan.github.io/favicon.ico?v=1587521044992">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://RookieYan.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="[2020-04-21]K3S从0搭建 | Gridea - Atom Feed" href="https://RookieYan.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="0. 准备工作
+
+首先准备两台ECS（我用的是阿里云的4核8G，买了一个周，准备搞一下）
+
+1. 环境配置
+
+需要Docker 19.03（如果使用较低版本，则可能会出现K3S无法启动的问题）
+
+
+需要把yum 包更新到最新
+
+yum  u..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://RookieYan.github.io">
+  <img class="avatar" src="https://RookieYan.github.io/images/avatar.png?v=1587521044992" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              [2020-04-21]K3S从0搭建
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-04-21
+              </span>
+              <span>
+                2 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h2 id="0-准备工作"><strong>0. 准备工作</strong></h2>
+<ul>
+<li>首先准备两台ECS（我用的是阿里云的4核8G，买了一个周，准备搞一下）</li>
+</ul>
+<h2 id="1-环境配置"><strong>1. 环境配置</strong></h2>
+<ul>
+<li>需要Docker 19.03（如果使用较低版本，则可能会出现K3S无法启动的问题）</li>
+</ul>
+<ol>
+<li>需要把yum 包更新到最新</li>
+</ol>
+<pre><code>yum  update
+</code></pre>
+<p><img src="https://RookieYan.github.io/post-images/1587476469607.png" alt="" loading="lazy"><br>
+2. 安装需要的依赖包 yum-util提供yum-config-manager功能，另外两个是devicemapper驱动依赖的。</p>
+<pre><code>yum install -y yum-utils  device-mapper-persistent-data  lvm2
+</code></pre>
+<p><img src="https://RookieYan.github.io/post-images/1587476490002.png" alt="" loading="lazy"><br>
+3. 设置yum源</p>
+<pre><code>yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://RookieYan.github.io/post-images/1587476599172.png" alt="" loading="lazy"></figure>
+<ol start="4">
+<li>安装docker，出现输入的界面都输入y</li>
+</ol>
+<pre><code>yum install  -y docker-ce
+</code></pre>
+<p><img src="https://RookieYan.github.io/post-images/1587476923202.png" alt="" loading="lazy"><br>
+5. 安装完成查看版本</p>
+<pre><code>docker -v
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="https://RookieYan.github.io/post-images/1587476969274.png" alt="" loading="lazy"></figure>
+<h2 id="2-安装k3smaster"><strong>2. 安装K3SMaster</strong></h2>
+<ol>
+<li>国内节点比较快</li>
+</ol>
+<pre><code>curl -sfL https://docs.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn sh -s - server --docker
+</code></pre>
+<figure data-type="image" tabindex="3"><img src="https://RookieYan.github.io/post-images/1587477633426.png" alt="" loading="lazy"></figure>
+<ol start="2">
+<li>从上面的安装日志也可以看到kubectl只是个软链接，详细如下所示：</li>
+</ol>
+<pre><code>which kubectl
+
+ls -l /usr/local/bin/kubectl
+</code></pre>
+<p><img src="https://RookieYan.github.io/post-images/1587482331193.png" alt="" loading="lazy"><br>
+3. 确认版本信息</p>
+<pre><code>kubectl version
+</code></pre>
+<p><img src="https://RookieYan.github.io/post-images/1587482516688.png" alt="" loading="lazy"><br>
+4. 获取节点信息</p>
+<pre><code>kubectl get node -o wide
+</code></pre>
+<p><img src="https://RookieYan.github.io/post-images/1587482618242.png" alt="" loading="lazy"><br>
+<strong>这两步步明显是存在问题的.. 查了一些资料.. 没能解决..<br>
+正确的显示应该是：</strong><br>
+<img src="https://RookieYan.github.io/post-images/1587482705796.png" alt="" loading="lazy"><br>
+<img src="https://RookieYan.github.io/post-images/1587482682298.png" alt="" loading="lazy"></p>
+<p><strong>尝试了好几种方式，后来阴差阳错的解决了.. 需要知道原因！ 解决方式是，无意间在命令行输入了</strong></p>
+<pre><code>k3s server &amp; 
+
+k3s server stop
+</code></pre>
+<p><strong>似乎执行起了什么东西.. 再使用上面的命令，就可以看到master正常启动了..</strong></p>
+<h2 id="3-node节点登录"><strong>3. Node节点登录</strong></h2>
+<ol>
+<li>K3S_TOKEN是server端的，位于/var/lib/rancher/k3s/server/node-token下</li>
+</ol>
+<pre><code>cat /var/lib/rancher/k3s/server/node-token
+</code></pre>
+<p><img src="https://RookieYan.github.io/post-images/1587484770708.png" alt="" loading="lazy"><br>
+2.</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#0-%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><strong>0. 准备工作</strong></a></li>
+<li><a href="#1-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><strong>1. 环境配置</strong></a></li>
+<li><a href="#2-%E5%AE%89%E8%A3%85k3smaster"><strong>2. 安装K3SMaster</strong></a></li>
+<li><a href="#3-node%E8%8A%82%E7%82%B9%E7%99%BB%E5%BD%95"><strong>3. Node节点登录</strong></a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://RookieYan.github.io/post/2020-04-18mysqlyi-sql-de-zhi-xing-liu-cheng/">
+              <h3 class="post-title">
+                [2020-04-18]MySQL（一）SQL的执行流程
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://RookieYan.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
