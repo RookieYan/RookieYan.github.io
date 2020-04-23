@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://RookieYan.github.io</id>
     <title>Gridea</title>
-    <updated>2020-04-22T02:04:37.207Z</updated>
+    <updated>2020-04-23T07:29:17.103Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://RookieYan.github.io"/>
     <link rel="self" href="https://RookieYan.github.io/atom.xml"/>
@@ -11,7 +11,7 @@
     <icon>https://RookieYan.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Gridea</rights>
     <entry>
-        <title type="html"><![CDATA[[2020-04-21]K3S从0搭建]]></title>
+        <title type="html"><![CDATA[[2020-04-21]K3S从0搭建以及集成JenkinsCICD流程]]></title>
         <id>https://RookieYan.github.io/post/2020-04-21k3s-cong-0-da-jian/</id>
         <link href="https://RookieYan.github.io/post/2020-04-21k3s-cong-0-da-jian/">
         </link>
@@ -47,14 +47,18 @@
 5. 安装完成查看版本</p>
 <pre><code>docker -v
 </code></pre>
-<figure data-type="image" tabindex="2"><img src="https://RookieYan.github.io/post-images/1587476969274.png" alt="" loading="lazy"></figure>
+<p><img src="https://RookieYan.github.io/post-images/1587476969274.png" alt="" loading="lazy"><br>
+6.启动 Docker</p>
+<pre><code>/bin/systemctl start docker.service
+如果不启动docker 会导致K3S无法正常启动
+</code></pre>
 <h2 id="2-安装k3smaster"><strong>2. 安装K3SMaster</strong></h2>
 <ol>
 <li>国内节点比较快</li>
 </ol>
 <pre><code>curl -sfL https://docs.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn sh -s - server --docker
 </code></pre>
-<figure data-type="image" tabindex="3"><img src="https://RookieYan.github.io/post-images/1587477633426.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://RookieYan.github.io/post-images/1587477633426.png" alt="" loading="lazy"></figure>
 <ol start="2">
 <li>从上面的安装日志也可以看到kubectl只是个软链接，详细如下所示：</li>
 </ol>
@@ -81,6 +85,10 @@ ls -l /usr/local/bin/kubectl
 k3s server stop
 </code></pre>
 <p><strong>似乎执行起了什么东西.. 再使用上面的命令，就可以看到master正常启动了..</strong></p>
+<p><strong>找到了原因是因为 安装K3S之前未启动Docker!!!!</strong><br>
+5. 查看K3S状态</p>
+<pre><code>/bin/systemctl status k3s
+</code></pre>
 <h2 id="3-node节点登录"><strong>3. Node节点登录</strong></h2>
 <ol>
 <li>K3S_TOKEN是server端的，位于/var/lib/rancher/k3s/server/node-token下</li>
@@ -88,7 +96,55 @@ k3s server stop
 <pre><code>cat /var/lib/rancher/k3s/server/node-token
 </code></pre>
 <p><img src="https://RookieYan.github.io/post-images/1587484770708.png" alt="" loading="lazy"><br>
-2.</p>
+2. 在agent节点上安装 并且添加到master中</p>
+<pre><code>curl -sfL https://docs.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn K3S_URL=https://172.26.XXX.14:6443 K3S_TOKEN=K102edd25b832c1442cffc113ba1dc78cbf1f26921f8481bee022b8a::server:bf20ed594c877be17d03a840 sh -s - --docker
+
+如果填写的是公网IP 则需要去阿里添加安全组 开放6443端口
+如果是内网则不需要做相关操作
+</code></pre>
+<ol start="3">
+<li>执行以下命令 检查状态</li>
+</ol>
+<pre><code>/bin/systemctl status k3s-agent
+</code></pre>
+<h2 id="4-需要安装maven和git同时把代码pull下来"><strong>4.  需要安装maven和Git同时把代码pull下来</strong></h2>
+<ol>
+<li>安装JDK<br>
+https://blog.csdn.net/qq_42670220/article/details/90753244</li>
+<li>安装Maven<br>
+https://www.cnblogs.com/cannel/p/11104190.html</li>
+</ol>
+<pre><code>vim /etc/profile
+source /etc/profile
+</code></pre>
+<ol start="3">
+<li>安装Git<br>
+https://www.cnblogs.com/wulixia/p/11016684.html</li>
+<li>使用Git 把代码pull下来</li>
+</ol>
+<pre><code>git clone -b devops ssh://yanjianxun@47.93.249.207:29418/~admin/cloud-data-center.git
+</code></pre>
+<ol start="5">
+<li>编写 Dockerfile<br>
+跟pom.xml同级目录， 后面会写shell脚本， 这里的Dockerfile 可能没用了。</li>
+</ol>
+<pre><code>FROM java:8-jdk-alpine
+LABEL maintainer sunzhe/www.sunzhe.com
+RUN apk upgrade
+RUN  apk add -U  tzdata &amp;&amp; \
+      ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+COPY ./target/cloud-data-center.jar ./
+EXPOSE 12313
+CMD java -jar /cloud-data-center.jar &gt; cloud-portal.log.out 2&gt;&amp;1
+</code></pre>
+<ol start="6">
+<li>执行Dockerfile</li>
+</ol>
+<pre><code>docker build -f Dockerfile -t haimanyun/cloud-data-center:1.0.0 .
+</code></pre>
+<ol start="7">
+<li>编写脚本</li>
+</ol>
 ]]></content>
     </entry>
     <entry>
