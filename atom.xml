@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://RookieYan.github.io</id>
     <title>Gridea</title>
-    <updated>2020-04-23T07:29:17.103Z</updated>
+    <updated>2020-05-01T17:52:23.402Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://RookieYan.github.io"/>
     <link rel="self" href="https://RookieYan.github.io/atom.xml"/>
@@ -10,6 +10,39 @@
     <logo>https://RookieYan.github.io/images/avatar.png</logo>
     <icon>https://RookieYan.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[ [2020-04-18]MySQL（二）RedoLog和BinLog]]></title>
+        <id>https://RookieYan.github.io/post/2020-04-18mysqler-redolog-he-binlog/</id>
+        <link href="https://RookieYan.github.io/post/2020-04-18mysqler-redolog-he-binlog/">
+        </link>
+        <updated>2020-05-01T16:04:49.000Z</updated>
+        <content type="html"><![CDATA[<p>  今天说一下MySQL的两个日志模块，分别是BinLog和RedoLog。<br>
+  可能有的研发同学会听到DBA同事说MySQL可以恢复到半个月内的任意一秒的状态，在惊奇的同时，可能会好奇是怎么实现的。我们今天就来聊聊这个事儿。</p>
+<p>  假如我们现在有一张表T，只有主键Id和一个整型字段 c，然后现在我们要将Id=2这一行的值加1，那么SQL语句应该这么写：</p>
+<pre><code>update T set c=c+1 where ID=2;
+</code></pre>
+<p>  从上一篇<a href="https://rookieyan.github.io/post/2020-04-18mysqlyi-sql-de-zhi-xing-liu-cheng/">MySQL（一）SQL的执行流程</a>我们基本可以很明确这条更新的SQL语句的执行流程会和查询流程一样把整个流程走一遍。前面我们也有说过，在对表做更新操作的时候，跟这个表有关的查询缓存会失效，所以这条语句的执行会把表T上的查询缓存中结果都清空。这也是我们一般不建议使用查询缓存的原因。<br>
+<img src="https://RookieYan.github.io/post-images/1588350320310.png" alt="" loading="lazy"><br>
+  接下来分析器会通过词法和语法解析知道这是一条更新语句。优化器会决定要使用ID对应的主键索引。执行器负责具体的执行操作，找到对应的这一行，然后更新。</p>
+<p>  和查询流程不一样的是，在更新流程中，会涉及到两个比较重要的日志模块。他们正是我们今天要讨论的主角：<strong>redolog（重做日志）和binlog（归档日志）</strong>。 如果接触过MySQL，那么这两个词肯定是绕不过去的。并且这两个日志模块在设计上也有很多有意思的地方，可以将设计思路运用到自己平时的设计和开发中。</p>
+<h2 id="1-redo-log">**1. redo log **</h2>
+<p>  有一个🌰可以很好的解释这个日志模块。《孔乙己》那篇文章中，酒馆老板有一个小黑板和一本账本，专门记录客人赊账的情况。如果有人要赊账或者还账的话，酒馆老板一般有两种做法：</p>
+<ul>
+<li>把账本翻出来，找到客人对应的记录，做更新操作。</li>
+<li>先在小黑板上记录下来这次的帐，等到打烊后再把账单翻出来核算。</li>
+</ul>
+<p>  在生意比较忙碌的情况下，酒馆老板一定会选择后者，因为前者是在太麻烦了，需要从账本中准确找到客人的记录（可能还没有索引），数目比较大的话可能还需要用算盘算一下，最后再把结果写到账本上。如果比较忙的情况下。这种方式一定是不可取的。 不如先写在小黑板上，等到空闲的时候，再去把账目同步到账本上。</p>
+<p>  同样的在MySQL中也有相似的问题，每一次的更新操作都需要写进磁盘里，然后磁盘也需要找到对应的记录做更新操作。整个过程的IO成本和查找成本都是比较高的。为了解决这个问题，MySQL的设计者就想到了类似于酒馆老板记账的思路来提升效率，减少IO。</p>
+<p>  所以小黑板和账单配合的过程，就是MySQL里经常说到的<strong>WAL技术，WAL技术的全称是Write-Ahead Logging，它的关键点就是先写日志，再写磁盘，也就是先写粉板，等不忙的时候再写账本。</strong></p>
+<p>  具体来说就是，当有一条记录需要被更新的时候，InnoDB引擎就会先把记录给写到redo log中（小黑板），并且更新内存。 这个时候更新就算完成了。 同时InnoDB会在比较合适的时候，把这个操作记录更新到磁盘中，而这个更新一般会是在系统比较空闲的时候去做的（类似于老板打烊后做的事儿）。</p>
+<p>  当然你可能会问，会不会有一种情况，就是今天生意太好了，小黑板都被写满了，那怎么办呢？ 如果是这种情况的话，那么只能让老板停下手中的活，先去把账本更新了，然后擦除黑板上的记录，腾出空间，再写上新的记录。InnoDB的redo log是固定大小的，比如可以配置一组是4个文件，每个文件小为1G，那么这块“小黑板”总共就可以记录4G的操作记录，从头开始写，写到末尾就再从头开始写。如下图所示：<br>
+<img src="https://RookieYan.github.io/post-images/1588354832158.png" alt="" loading="lazy"><br>
+  write pos是当前记录的位置，一边写一边后移，写到LogFile3的末尾就到了LogFile0的开头继续写，check point是当前要擦除的位置，也是一样要往后移并且循环的，擦除记录前要把记录更新到数据文件中。</p>
+<p>  write pos 和 checkpoint 之间的绿色部分是“小黑板”上还空着的部分，可以用来记录新的操作。如果 write pos 追上 checkpoint，表示“小黑板”满了，这时候不能再执行新的更新，得停下来先擦掉一些记录，把 checkpoint 推进一下。</p>
+<p>  至此，有了redolog，InnoDB就可以保证数据在发生数据库异常重启的时候，之前提交的数据都不会丢失，这个能力称为<strong>crash-safe</strong>。</p>
+<h2 id="2-bin-log">**2. bin log **</h2>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[[2020-04-21]K3S从0搭建以及集成JenkinsCICD流程]]></title>
         <id>https://RookieYan.github.io/post/2020-04-21k3s-cong-0-da-jian/</id>
@@ -110,7 +143,15 @@ k3s server stop
 <h2 id="4-需要安装maven和git同时把代码pull下来"><strong>4.  需要安装maven和Git同时把代码pull下来</strong></h2>
 <ol>
 <li>安装JDK<br>
-https://blog.csdn.net/qq_42670220/article/details/90753244</li>
+https://blog.csdn.net/qq_42670220/article/details/90753244<br>
+安装rz（方便本地包上传到服务器）</li>
+</ol>
+<pre><code>yum install -y lrzsz 
+
+安装完需要刷新配置
+source /etc/profile
+</code></pre>
+<ol start="2">
 <li>安装Maven<br>
 https://www.cnblogs.com/cannel/p/11104190.html</li>
 </ol>
@@ -122,7 +163,14 @@ source /etc/profile
 https://www.cnblogs.com/wulixia/p/11016684.html</li>
 <li>使用Git 把代码pull下来</li>
 </ol>
-<pre><code>git clone -b devops ssh://yanjianxun@47.93.249.207:29418/~admin/cloud-data-center.git
+<pre><code>这里需要先配置私钥
+ssh-keygen -o
+
+cat cat /root/.ssh/id_rsa.pub
+
+配置到gitblit上
+
+git clone -b devops ssh://yanjianxun@47.93.249.207:29418/~admin/cloud-data-center.git
 </code></pre>
 <ol start="5">
 <li>编写 Dockerfile<br>
@@ -145,6 +193,155 @@ CMD java -jar /cloud-data-center.jar &gt; cloud-portal.log.out 2&gt;&amp;1
 <ol start="7">
 <li>编写脚本</li>
 </ol>
+<h2 id="5-安装harbor"><strong>5.  安装harbor</strong></h2>
+<ol>
+<li>下载，解压 (如果自家网络好，可以下载下来再上传到服务器)</li>
+</ol>
+<pre><code>wget https://github.com/goharbor/harbor/releases/download/v1.10.2/harbor-offline-installer-v1.10.2.tgz
+
+tar  -zxf  harbor-offline-installer-v1.10.2.tgz
+</code></pre>
+<ol start="2">
+<li>修改配置</li>
+</ol>
+<pre><code>修改 harbor.yml -&gt; hostname:改为本机ip， 修改http:port,  注释掉关于 https的配置，修改密码
+</code></pre>
+<ol start="3">
+<li>安装docker-compose</li>
+</ol>
+<pre><code>yum -y install docker-compose
+</code></pre>
+<ol start="4">
+<li>修改docker配置</li>
+</ol>
+<pre><code>systemctl status docker  找到docker路径
+
+docker.service 中添加配置 -&gt; vim /usr/lib/systemd/system/docker.service 
+        中 ExecStart= 后面添加上 --insecure-registry=39.101.174.47:5656
+</code></pre>
+<p><img src="https://RookieYan.github.io/post-images/1587667006811.png" alt="" loading="lazy"><br>
+5.  重启docker</p>
+<pre><code>systemctl daemon-reload
+systemctl restart docker
+</code></pre>
+<ol start="6">
+<li>执行harbor的安装脚本，启动harbor</li>
+</ol>
+<pre><code>sh install.sh
+</code></pre>
+<ol start="7">
+<li>登录harbor</li>
+</ol>
+<pre><code>docker login ip:port 用户名默认为admin 密码为自己修改配置文件设置好的
+</code></pre>
+<h2 id="6-编写脚本文件maven打包docker制作镜像依赖的是目录下的dockerfile"><strong>6.  编写脚本文件，maven打包+docker制作镜像（依赖的是目录下的Dockerfile）</strong></h2>
+<ol>
+<li>Dockerfile</li>
+</ol>
+<pre><code>FROM java:8-jdk-alpine
+LABEL ceshi/www.ceshi.com
+RUN apk upgrade
+RUN  apk add -U  tzdata &amp;&amp; \
+      ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+COPY ./target/cloud-data-center.jar ./
+EXPOSE 12313
+CMD java -jar /cloud-data-center.jar &gt; cloud-portal.log.out 2&gt;&amp;1
+</code></pre>
+<ol start="2">
+<li>配置文件</li>
+</ol>
+<p>cloud-data-center.yaml</p>
+<pre><code>---
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: cloud-data-center
+  namespace: kube-system 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      project: kube-system
+      app: cloud-data-center
+  template:
+    metadata:
+      labels:
+        project: kube-system 
+        app: cloud-data-center
+    spec:
+      imagePullSecrets:
+      - name: registry-pull-secret
+      containers:
+      - name: cloud-data-center
+        image: 39.101.204.17:5656/k3s/cloud-data-center:2020-04-24-02-20-49
+        imagePullPolicy: Always
+        ports:
+          - protocol: TCP
+            containerPort: 12313
+        env:
+          - name: JAVA_OPTS
+            value: &quot;-Xmx1G&quot;
+        resources:
+          requests:
+            cpu: 0.1
+            memory: 128Mi
+          limits:
+            cpu: 0.1
+            memory: 1Gi
+        readinessProbe:
+          tcpSocket:
+            port: 12313
+          initialDelaySeconds: 60
+          periodSeconds: 10
+        livenessProbe:
+          tcpSocket:
+            port: 12313
+          initialDelaySeconds: 60
+          periodSeconds: 10
+</code></pre>
+<ol start="3">
+<li>配置文件<br>
+可以先执行， 执行方式为 kubectl apply -f cloud-data-center-ser.yaml</li>
+</ol>
+<pre><code>apiVersion: v1
+kind: Service
+metadata:
+  name: cloud-data-center
+  namespace: kube-system
+spec:
+  type: NodePort
+  ports:
+  - port: 12313
+    name: cloud-data-center
+  selector:
+    project: kube-system
+    app: cloud-data-center
+</code></pre>
+<ol start="4">
+<li>脚本</li>
+</ol>
+<pre><code>#!/bin/bash
+docker_registry=39.101.174.47:5656
+kubectl create secret docker-registry registry-pull-secret --docker-server=$docker_registry --docker-username=ceshi --docker-password=Cheshi123456 --docker-email=ceshi@123.com -n kube-system
+#service_list=&quot;cloud-data-center&quot;
+#service_list=${1:-${service_list}}
+service=&quot;cloud-data-center&quot;
+current_dir=$(pwd)
+cd /data/code/cloud-data-center/cloud-data-center
+echo ${current_dir}
+# git checkout devops
+# -b devops ssh://yanjianxun@47.93.249.207:29418/~admin/cloud-data-center.git
+git pull
+mvn -f XX/XX/pom.xml clean
+mvn -f XX/XX/pom.xml install
+image_name=$docker_registry/k3s/${service}:$(date +%F-%H-%M-%S)
+sudo docker build -t ${image_name} .
+sudo docker push ${image_name}
+echo ${current_dir}
+sed -i -r &quot;s#(image: )(.*)#\1$image_name#&quot; ${current_dir}/${service}/${service}.yaml
+kubectl apply -f ${current_dir}/${service}/${service}.yaml
+</code></pre>
+<h2 id="7-安装k8s"><strong>7.  安装K8S</strong></h2>
 ]]></content>
     </entry>
     <entry>
