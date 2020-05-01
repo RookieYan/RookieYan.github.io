@@ -7,7 +7,7 @@
 <meta name="description" content="一个白痴">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link rel="shortcut icon" href="https://RookieYan.github.io/favicon.ico?v=1588358924968">
+<link rel="shortcut icon" href="https://RookieYan.github.io/favicon.ico?v=1588359188349">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
@@ -85,10 +85,15 @@
             <p class="article-meta">
               2020-05-02
               
+                <a href="https://RookieYan.github.io/tag/A0v8BAYSM/" class="badge secondary">
+                  MySQL
+                </a>
+              
             </p>
             
             <div class="post-content">
-              <p>  今天说一下MySQL的两个日志模块，分别是BinLog和RedoLog。<br>
+              <!-- more -->
+<p>  今天说一下MySQL的两个日志模块，分别是BinLog和RedoLog。<br>
   可能有的研发同学会听到DBA同事说MySQL可以恢复到半个月内的任意一秒的状态，在惊奇的同时，可能会好奇是怎么实现的。我们今天就来聊聊这个事儿。</p>
 <p>  假如我们现在有一张表T，只有主键Id和一个整型字段 c，然后现在我们要将Id=2这一行的值加1，那么SQL语句应该这么写：</p>
 <pre><code>update T set c=c+1 where ID=2;
@@ -113,6 +118,8 @@
 <p>  write pos 和 checkpoint 之间的绿色部分是“小黑板”上还空着的部分，可以用来记录新的操作。如果 write pos 追上 checkpoint，表示“小黑板”满了，这时候不能再执行新的更新，得停下来先擦掉一些记录，把 checkpoint 推进一下。</p>
 <p>  至此，有了redolog，InnoDB就可以保证数据在发生数据库异常重启的时候，之前提交的数据都不会丢失，这个能力称为<strong>crash-safe</strong>。</p>
 <h2 id="2-bin-log"><strong>2. bin log</strong></h2>
+<pre><code>未完待续....
+</code></pre>
 
             </div>
           </article>
@@ -136,7 +143,7 @@
 
       <div class="sm-12 md-4 col sidebar">
   <div class="paper info-container">
-    <img src="https://RookieYan.github.io/images/avatar.png?v=1588358924968" class="no-responsive avatar">
+    <img src="https://RookieYan.github.io/images/avatar.png?v=1588359188349" class="no-responsive avatar">
     <div class="text-muted">一个白痴</div>
     <div class="social-container">
       
@@ -191,6 +198,18 @@
       标签列表
     </div>
     <div class="row">
+      
+        <a href="https://RookieYan.github.io/tag/A0v8BAYSM/" class="badge success">
+          MySQL
+        </a>
+      
+        <a href="https://RookieYan.github.io/tag/HAPk8628r/" class="badge success">
+          K3S
+        </a>
+      
+        <a href="https://RookieYan.github.io/tag/w5-hCCJiF/" class="badge ">
+          心灵XX汤
+        </a>
       
     </div>
   </div>
