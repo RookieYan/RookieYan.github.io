@@ -1,86 +1,1005 @@
+<!DOCTYPE html>
 <html>
-  <head>
-  <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Gridea</title>
-<link rel="shortcut icon" href="https://RookieYan.github.io/favicon.ico?v=1588355508861">
-<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
-<link rel="stylesheet" href="https://RookieYan.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="Gridea - Atom Feed" href="https://RookieYan.github.io/atom.xml">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+<head>
+  <meta charset="UTF-8" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="keywords" content="Gridea静态个人博客">
+<meta name="description" content="一个白痴">
+<meta name="theme-color" content="#000">
+<title>闫。</title>
+<link rel="shortcut icon" href="/favicon.ico?v=1588358014506">
+<link rel="stylesheet" href="/styles/main.css">
+<link rel="stylesheet" href="/media/css/gemini.css">
+
+<link rel="stylesheet" href="/media/fonts/font-awesome.css">
+<link
+  href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Rosario:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext"
+  rel="stylesheet" type="text/css">
+
+<link href="/media/hljs/styles/androidstudio.css"
+  rel="stylesheet">
+
+<script src="/media/hljs/highlight.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.0/velocity.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.0/velocity.ui.min.js"></script>
+
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
 
 
-  <meta name="description" content="温故而知新" />
-  </head>
-  <body>
-    <div class="main">
-      <div class="main-content">
-        <div class="site-header">
-  <a href="https://RookieYan.github.io">
-  <img class="avatar" src="https://RookieYan.github.io/images/avatar.png?v=1588355508861" alt="">
-  </a>
-  <h1 class="site-title">
-    Gridea
-  </h1>
-  <p class="site-description">
-    温故而知新
-  </p>
-  <div class="menu-container">
-    
-      
-        <a href="/" class="menu">
-          首页
-        </a>
-      
-    
-      
-        <a href="/archives" class="menu">
-          归档
-        </a>
-      
-    
-      
-        <a href="/tags" class="menu">
-          标签
-        </a>
-      
-    
-      
-        <a href="/post/about" class="menu">
-          关于
-        </a>
-      
-    
-  </div>
-  <div class="social-container">
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  </div>
-</div>
+</head>
 
-
-        <div class="tags-container">
+<body>
+  <div class="head-top-line"></div>
+  <div class="header-box">
+    
+<div class="gemini">
+  <header class="header  ">
+    <div class="blog-header box-shadow-wrapper bg-color " id="header">
+      <div class="nav-toggle" id="nav_toggle">
+        <div class="toggle-box">
+          <div class="line line-top"></div>
+          <div class="line line-center"></div>
+          <div class="line line-bottom"></div>
+        </div>
+      </div>
+      <div class="site-meta">       
+        <div class="site-title">
+          
+            <a href="/" class="brand">
+              <span>闫。</span>
+            </a>  
           
         </div>
-
-        <div class="site-footer">
-  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
-  <a class="rss" href="https://RookieYan.github.io/atom.xml" target="_blank">
-    <i class="ri-rss-line"></i> RSS
-  </a>
+        
+          <p class="subtitle">精于心，简于形</p>
+        
+      </div>
+      <nav class="site-nav" id="site_nav">
+        <ul id="nav_ul">
+          
+            
+            
+              
+            
+            <li class="nav-item ">
+              
+              
+                <a href="/" target="_self">
+                  <i class="fa fa-home"></i> 首页
+                </a>
+              
+            </li>
+          
+            
+            
+              
+            
+            <li class="nav-item ">
+              
+              
+                <a href="/archives/" target="_self">
+                  <i class="fa fa-archive"></i> 归档
+                </a>
+              
+            </li>
+          
+            
+            
+              
+            
+            <li class="nav-item nav-item-active">
+              
+              
+                <a href="/tags/" target="_self">
+                  <i class="fa fa-tags"></i> 标签
+                </a>
+              
+            </li>
+          
+            
+            
+              
+            
+            <li class="nav-item ">
+              
+              
+                <a href="/post/about/" target="_self">
+                  <i class="fa fa-user"></i> 关于
+                </a>
+              
+            </li>
+          
+          
+            
+              <li class="nav-item ">
+                <a href="/friends/" target="_self">
+                  
+                    <i class="fa fa-address-book"></i> 友情链接
+                  
+                </a>
+              </li>
+            
+          
+        </ul>
+      </nav>
+    </div>
+  </header>
 </div>
 
+<script type="text/javascript"> 
+ 
+  let showNav = true;
+
+  let navToggle = document.querySelector('#nav_toggle'),
+  siteNav = document.querySelector('#site_nav');
+  
+  function navClick() {
+    let sideBar = document.querySelector('.sidebar');
+    let navUl = document.querySelector('#nav_ul');
+    navToggle.classList.toggle('nav-toggle-active');
+    siteNav.classList.toggle('nav-menu-active');
+    if (siteNav.classList.contains('nav-menu-active')) {
+      siteNav.style = "height: " + (navUl.children.length * 42) +"px !important";
+    } else {
+      siteNav.style = "";
+    }
+  }
+
+  navToggle.addEventListener('click',navClick);  
+</script>
+  </div>
+  <div class="main-continer">
+    
+    <div
+      class="section-layout  gemini">
+      <div class="section-layout-wrapper">
+        <div id="sidebarMeta" class="sidebar">
+    
+<div class="sidebar-wrapper box-shadow-wrapper bg-color">
+  <div class="sidebar-item">
+    <img class="site-author-image right-motion" src="/images/avatar.png"/>
+    <p class="site-author-name">适用 Gemini,Pisces 布局,版权说明需配置</p>
+    
+  </div>
+  <div class="sidebar-item side-item-stat right-motion">
+    <div class="sidebar-item-box">
+      <a href="/archives/">
+        
+        <span class="site-item-stat-count">4</span>
+        <span class="site-item-stat-name">文章</span>
+      </a>
+    </div>
+    <div class="sidebar-item-box">
+      <a href="">
+        <span class="site-item-stat-count">0</span>
+        <span class="site-item-stat-name">分类</span>
+      </a>
+    </div>
+    <div class="sidebar-item-box">
+      <a href="/tags/">
+        <span class="site-item-stat-count">0</span>
+        <span class="site-item-stat-name">标签</span>
+      </a>
+    </div>
+  </div>
+  
+    
+  
+  
+
+
+</div>
+</div>
+<script>
+  let sidebarMeta = document.querySelector('#sidebarMeta');
+  let scheme = 'gemini';
+  let sidebarWrapper = document.querySelector('.sidebar-wrapper');
+  if (sidebarMeta && (scheme === 'pisces' || scheme === 'gemini')) {
+    document.addEventListener('scroll', function(e) {
+      if (document.scrollingElement.scrollTop > parseInt(sidebarMeta.style.marginTop) + 10) {
+        sidebarWrapper.classList.add('home-sidebar-fixed')
+      } else {
+        sidebarWrapper.classList.remove('home-sidebar-fixed')
+      }
+    });
+  }
+  </script>
+        <div class="section-box box-shadow-wrapper">
+          <section class="section tags-section bg-color posts-expand">
+            <div class="tags-box">
+  <div class="tag-cloud-title">
+    目前共计 0 个标签
+  </div>
+  <div class="tag-cloud-list" id="tags">
+    
+  </div>
+</div>
+<script>
+
+  let fontStart = 12, fontEnd = 30, colorStart = '#666', colorEnd = '#000';
+  let tags = document.querySelector('#tags').children;
+  let counts = [];
+  for(let i = 0; i < tags.length; i++) {
+    counts.push(tags[i].rel);
+  }
+  let lowest = Math.min.apply(null,counts), highest = Math.max.apply(null,counts);;
+  let range = highest - lowest;
+  if (range === 0) {
+    range = 1;
+  }
+  let fontIncr, colorIncr;
+  fontIncr = (fontEnd - fontStart) / range;
+  
+  let sColorArr = toRGB(colorStart), eColorArr = toRGB(colorEnd);
+
+  for(let i = 0; i < tags.length; i++) {
+    let disCount = tags[i].rel - lowest;
+    let fontSize = fontStart + disCount * fontIncr;
+    let style = 'font-size: ' + fontSize + 'px;';
+    let arr = [];
+    for(let c = 0; c < sColorArr.length; c++) {
+      if (disCount === 0) {
+        disCount = 1;
+      }
+      let val = (sColorArr[c] - eColorArr[c]) / range * disCount;
+      if (val >= 100) {
+        val = eColorArr[c];
+      } else if (val <= 0) {
+        val = sColorArr[c];
+      }
+      arr[c] = Math.floor(val);
+    }
+    style += 'color: ' + toHex(arr);
+    tags[i].style = style;
+  }
+
+  function toRGB(code) {
+    if (code.length === 4) {
+      code = code.replace(/(\w)(\w)(\w)/gi, "\$1\$1\$2\$2\$3\$3");
+    }
+    var hex = /(\w{2})(\w{2})(\w{2})/.exec(code);
+    return [parseInt(hex[1], 16), parseInt(hex[2], 16), parseInt(hex[3], 16)];
+  }
+
+  function toHex(ary) {
+    return "#" + ((1 << 24) + (ary[0] << 16) + (ary[1] << 8) + ary[2]).toString(16).slice(1);
+  }
+
+</script>
+          </section>
+        </div>
       </div>
     </div>
-  </body>
+    <div class="footer-box">
+  <footer class="footer">
+    <div class="copyright">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | © 2019-2020 Theme By <a href="https://github.com/hsxyhao/gridea-theme-next" target="_blank">HsxyHao</a>
+    </div>
+    <div class="poweredby">
+      Powered by <a href="https://rookieyan.github.io/" target="_blank">闫</a>
+    </div>
+  </footer>
+  
+  
+  <div class="gemini back-to-top" id="back_to_top">
+    <i class="fa fa-arrow-up"></i>
+    
+    <span class="scrollpercent">
+      <span id="back_to_top_text">0</span>%
+    </span>
+    
+  </div>
+  
+    <div class="bg-img">
+      <img src="/media/images/1.jpg" />
+    </div>
+  
+  
+  
+</div>
+<script>
+
+  let sideBarOpen = 'sidebar-open';
+  let body = document.body;
+  let back2Top = document.querySelector('#back_to_top'),
+  back2TopText = document.querySelector('#back_to_top_text'),
+  drawerBox = document.querySelector('#drawer_box'),
+  rightSideBar = document.querySelector('.sidebar'),
+  viewport = document.querySelector('body');
+
+  function scrollAnimation(currentY, targetY) {
+   
+    let needScrollTop = targetY - currentY
+    let _currentY = currentY
+    setTimeout(() => {
+      const dist = Math.ceil(needScrollTop / 10)
+      _currentY += dist
+      window.scrollTo(_currentY, currentY)
+      if (needScrollTop > 10 || needScrollTop < -10) {
+        scrollAnimation(_currentY, targetY)
+      } else {
+        window.scrollTo(_currentY, targetY)
+      }
+    }, 1)
+  }
+
+  back2Top.addEventListener("click", function(e) {
+    scrollAnimation(document.scrollingElement.scrollTop, 0);
+    e.stopPropagation();
+    return false;
+  });
+  
+  window.addEventListener('scroll', function(e) {
+    let percent = document.scrollingElement.scrollTop / (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight) * 100;
+    if (percent > 1 && !back2Top.classList.contains('back-top-active')) {
+      back2Top.classList.add('back-top-active');
+    }
+    if (percent == 0) {
+      back2Top.classList.remove('back-top-active');
+    }
+    if (back2TopText) {
+      back2TopText.textContent = Math.floor(percent);
+    }
+  });
+
+  
+  let hasCacu = false;
+  window.onresize = function() {
+    if (window.width > 991) {
+      calcuHeight();
+    } else {
+      hasCacu = false;
+    }
+  }
+
+  function calcuHeight() {
+    // 动态调整站点概览高度
+    if (!hasCacu && back2Top.classList.contains('pisces') || back2Top.classList.contains('gemini')) {
+      let sideBar = document.querySelector('.sidebar');
+      let navUl = document.querySelector('#site_nav');
+      sideBar.style = 'margin-top:' + (navUl.offsetHeight + navUl.offsetTop + 15) + 'px;';
+      hasCacu = true;
+    }
+  }
+  calcuHeight();
+  
+  let open = false, MOTION_TIME = 300, RIGHT_MOVE_DIS = '320px';
+
+  if (drawerBox) {
+    let rightMotions = document.querySelectorAll('.right-motion');
+    let right = drawerBox.classList.contains('right');
+
+    let transitionDir = right ? "transition.slideRightIn" : "transition.slideLeftIn";
+
+    let openProp, closeProp;
+    if (right) {
+      openProp = {
+        paddingRight: RIGHT_MOVE_DIS 
+      };
+      closeProp = {
+        paddingRight: '0px'
+      };
+    } else {
+      openProp = {
+        paddingLeft: RIGHT_MOVE_DIS 
+      };
+      closeProp = {
+        paddingLeft: '0px'
+      };
+    }
+
+    drawerBox.onclick = function() {
+      open = !open;
+      window.Velocity(rightSideBar, 'stop');
+      window.Velocity(viewport, 'stop');
+      window.Velocity(rightMotions, 'stop');
+      if (open) {
+        window.Velocity(rightSideBar, {
+          width: RIGHT_MOVE_DIS
+        }, {
+          duration: MOTION_TIME,
+          begin: function() {
+            window.Velocity(rightMotions, transitionDir,{ });
+          }
+        })
+        window.Velocity(viewport, openProp,{
+          duration: MOTION_TIME
+        });
+      } else {
+        window.Velocity(rightSideBar, {
+          width: '0px'
+        }, {
+          duration: MOTION_TIME,
+          begin: function() {
+            window.Velocity(rightMotions, {
+              opacity: 0
+            });
+          }
+        })
+        window.Velocity(viewport, closeProp ,{
+          duration: MOTION_TIME
+        });
+      }
+      for (let i = 0; i < drawerBox.children.length; i++) {
+        drawerBox.children[i].classList.toggle('muse-line');
+      }
+      drawerBox.classList.toggle(sideBarOpen);
+    }
+  }
+
+  // 链接跳转
+  let newWindow = 'false'
+  if (newWindow === 'true') {
+    let links = document.querySelectorAll('.post-body a')
+    links.forEach(item => {
+      if (!item.classList.contains('btn')) {
+        item.setAttribute("target","_blank");
+      }
+    })
+  }
+  // 代码高亮
+  hljs.initHighlightingOnLoad();
+
+</script>
+  </div>
+</body>
+<input hidden id="copy" />
+<script>
+  //拿来主义(真香)^_^，Clipboard 实现摘自掘金 https://juejin.im/post/5aefeb6e6fb9a07aa43c20af
+  window.Clipboard = (function (window, document, navigator) {
+    var textArea,
+      copy;
+
+    // 判断是不是ios端
+    function isOS() {
+      return navigator.userAgent.match(/ipad|iphone/i);
+    }
+    //创建文本元素
+    function createTextArea(text) {
+      textArea = document.createElement('textArea');
+      textArea.value = text;
+      textArea.style.width = 0;
+      textArea.style.height = 0;
+      textArea.clientHeight = 0;
+      textArea.clientWidth = 0;
+      document.body.appendChild(textArea);
+    }
+    //选择内容
+    function selectText() {
+      var range,
+        selection;
+
+      if (isOS()) {
+        range = document.createRange();
+        range.selectNodeContents(textArea);
+        selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        textArea.setSelectionRange(0, 999999);
+      } else {
+        textArea.select();
+      }
+    }
+
+    //复制到剪贴板
+    function copyToClipboard() {
+      try {
+        document.execCommand("Copy")
+      } catch (err) {
+        alert("复制错误！请手动复制！")
+      }
+      document.body.removeChild(textArea);
+    }
+
+    copy = function (text) {
+      createTextArea(text);
+      selectText();
+      copyToClipboard();
+    };
+
+    return {
+      copy: copy
+    };
+  })(window, document, navigator);
+
+  function copyCode(e) {
+    if (e.srcElement.tagName === 'SPAN' && e.srcElement.classList.contains('copy-code')) {
+      let code = e.currentTarget.querySelector('code');
+      var text = code.innerText;
+      if (e.srcElement.textContent === '复制成功') {
+        console.log('复制操作频率过高');
+        return;
+      }
+      e.srcElement.textContent = '复制成功';
+      (function (elem) {
+        setTimeout(() => {
+          if (elem.textContent === '复制成功') {
+            elem.textContent = '复制代码'
+          }
+        }, 1000);
+      })(e.srcElement)
+      Clipboard.copy(text);
+    }
+  }
+
+  let pres = document.querySelectorAll('pre');
+  pres.forEach(pre => {
+    let code = pre.querySelector('code');
+    let copyElem = document.createElement('span');
+    copyElem.classList.add('copy-code');
+    copyElem.textContent = '复制代码';
+    pre.appendChild(copyElem);
+    pre.onclick = copyCode
+  })
+</script>
+<script src="/media/js/motion.js"></script>
+
+<script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+<script>
+  var scroll = new SmoothScroll('a[href*="#"]', {
+    speed: 500
+  });
+</script>
+
+<!-- <div class="search-mask" id="search_mask">
+  <div class="search-box">
+    <div class="search-title">
+      <i class="fa fa-search"></i>
+      <div class="input-box">
+        <input type="text" placeholder="搜索">
+      </div>
+      <i class="fa fa-times-circle"></i>
+    </div>
+    <div class="result">
+      
+      <div class="item">
+        <a class="result-title" href="https://RookieYan.github.io/post/2020-04-18mysqler-redolog-he-binlog/"" data-c="
+          &lt;p&gt;  今天说一下MySQL的两个日志模块，分别是BinLog和RedoLog。&lt;br&gt;
+  可能有的研发同学会听到DBA同事说MySQL可以恢复到半个月内的任意一秒的状态，在惊奇的同时，可能会好奇是怎么实现的。我们今天就来聊聊这个事儿。&lt;/p&gt;
+&lt;p&gt;  假如我们现在有一张表T，只有主键Id和一个整型字段 c，然后现在我们要将Id=2这一行的值加1，那么SQL语句应该这么写：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;update T set c=c+1 where ID=2;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;  从上一篇&lt;a href=&#34;https://rookieyan.github.io/post/2020-04-18mysqlyi-sql-de-zhi-xing-liu-cheng/&#34;&gt;MySQL（一）SQL的执行流程&lt;/a&gt;我们基本可以很明确这条更新的SQL语句的执行流程会和查询流程一样把整个流程走一遍。前面我们也有说过，在对表做更新操作的时候，跟这个表有关的查询缓存会失效，所以这条语句的执行会把表T上的查询缓存中结果都清空。这也是我们一般不建议使用查询缓存的原因。&lt;br&gt;
+&lt;img src=&#34;https://RookieYan.github.io/post-images/1588350320310.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+  接下来分析器会通过词法和语法解析知道这是一条更新语句。优化器会决定要使用ID对应的主键索引。执行器负责具体的执行操作，找到对应的这一行，然后更新。&lt;/p&gt;
+&lt;p&gt;  和查询流程不一样的是，在更新流程中，会涉及到两个比较重要的日志模块。他们正是我们今天要讨论的主角：&lt;strong&gt;redolog（重做日志）和binlog（归档日志）&lt;/strong&gt;。 如果接触过MySQL，那么这两个词肯定是绕不过去的。并且这两个日志模块在设计上也有很多有意思的地方，可以将设计思路运用到自己平时的设计和开发中。&lt;/p&gt;
+&lt;h2 id=&#34;1-redo-log&#34;&gt;**1. redo log **&lt;/h2&gt;
+&lt;p&gt;  有一个🌰可以很好的解释这个日志模块。《孔乙己》那篇文章中，酒馆老板有一个小黑板和一本账本，专门记录客人赊账的情况。如果有人要赊账或者还账的话，酒馆老板一般有两种做法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;把账本翻出来，找到客人对应的记录，做更新操作。&lt;/li&gt;
+&lt;li&gt;先在小黑板上记录下来这次的帐，等到打烊后再把账单翻出来核算。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;  在生意比较忙碌的情况下，酒馆老板一定会选择后者，因为前者是在太麻烦了，需要从账本中准确找到客人的记录（可能还没有索引），数目比较大的话可能还需要用算盘算一下，最后再把结果写到账本上。如果比较忙的情况下。这种方式一定是不可取的。 不如先写在小黑板上，等到空闲的时候，再去把账目同步到账本上。&lt;/p&gt;
+&lt;p&gt;  同样的在MySQL中也有相似的问题，每一次的更新操作都需要写进磁盘里，然后磁盘也需要找到对应的记录做更新操作。整个过程的IO成本和查找成本都是比较高的。为了解决这个问题，MySQL的设计者就想到了类似于酒馆老板记账的思路来提升效率，减少IO。&lt;/p&gt;
+&lt;p&gt;  所以小黑板和账单配合的过程，就是MySQL里经常说到的&lt;strong&gt;WAL技术，WAL技术的全称是Write-Ahead Logging，它的关键点就是先写日志，再写磁盘，也就是先写粉板，等不忙的时候再写账本。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;  具体来说就是，当有一条记录需要被更新的时候，InnoDB引擎就会先把记录给写到redo log中（小黑板），并且更新内存。 这个时候更新就算完成了。 同时InnoDB会在比较合适的时候，把这个操作记录更新到磁盘中，而这个更新一般会是在系统比较空闲的时候去做的（类似于老板打烊后做的事儿）。&lt;/p&gt;
+&lt;p&gt;  当然你可能会问，会不会有一种情况，就是今天生意太好了，小黑板都被写满了，那怎么办呢？ 如果是这种情况的话，那么只能让老板停下手中的活，先去把账本更新了，然后擦除黑板上的记录，腾出空间，再写上新的记录。InnoDB的redo log是固定大小的，比如可以配置一组是4个文件，每个文件小为1G，那么这块“小黑板”总共就可以记录4G的操作记录，从头开始写，写到末尾就再从头开始写。如下图所示：&lt;br&gt;
+&lt;img src=&#34;https://RookieYan.github.io/post-images/1588354832158.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+  write pos是当前记录的位置，一边写一边后移，写到LogFile3的末尾就到了LogFile0的开头继续写，check point是当前要擦除的位置，也是一样要往后移并且循环的，擦除记录前要把记录更新到数据文件中。&lt;/p&gt;
+&lt;p&gt;  write pos 和 checkpoint 之间的绿色部分是“小黑板”上还空着的部分，可以用来记录新的操作。如果 write pos 追上 checkpoint，表示“小黑板”满了，这时候不能再执行新的更新，得停下来先擦掉一些记录，把 checkpoint 推进一下。&lt;/p&gt;
+&lt;p&gt;  至此，有了redolog，InnoDB就可以保证数据在发生数据库异常重启的时候，之前提交的数据都不会丢失，这个能力称为&lt;strong&gt;crash-safe&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;2-bin-log&#34;&gt;**2. bin log **&lt;/h2&gt;
+"> [2020-04-18]MySQL（二）RedoLog和BinLog</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" href="https://RookieYan.github.io/post/2020-04-21k3s-cong-0-da-jian/"" data-c="
+          &lt;h2 id=&#34;0-准备工作&#34;&gt;&lt;strong&gt;0. 准备工作&lt;/strong&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;首先准备两台ECS（我用的是阿里云的4核8G，买了一个周，准备搞一下）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;1-环境配置&#34;&gt;&lt;strong&gt;1. 环境配置&lt;/strong&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;需要Docker 19.03（如果使用较低版本，则可能会出现K3S无法启动的问题）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+&lt;li&gt;需要把yum 包更新到最新&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;yum  update
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://RookieYan.github.io/post-images/1587476469607.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+2. 安装需要的依赖包 yum-util提供yum-config-manager功能，另外两个是devicemapper驱动依赖的。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;yum install -y yum-utils  device-mapper-persistent-data  lvm2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://RookieYan.github.io/post-images/1587476490002.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+3. 设置yum源&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+&lt;/code&gt;&lt;/pre&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://RookieYan.github.io/post-images/1587476599172.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;安装docker，出现输入的界面都输入y&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;yum install  -y docker-ce
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://RookieYan.github.io/post-images/1587476923202.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+5. 安装完成查看版本&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;docker -v
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://RookieYan.github.io/post-images/1587476969274.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+6.启动 Docker&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;/bin/systemctl start docker.service
+如果不启动docker 会导致K3S无法正常启动
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;2-安装k3smaster&#34;&gt;&lt;strong&gt;2. 安装K3SMaster&lt;/strong&gt;&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;国内节点比较快&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;curl -sfL https://docs.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn sh -s - server --docker
+&lt;/code&gt;&lt;/pre&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://RookieYan.github.io/post-images/1587477633426.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;从上面的安装日志也可以看到kubectl只是个软链接，详细如下所示：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;which kubectl
+
+ls -l /usr/local/bin/kubectl
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://RookieYan.github.io/post-images/1587482331193.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+3. 确认版本信息&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl version
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://RookieYan.github.io/post-images/1587482516688.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+4. 获取节点信息&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kubectl get node -o wide
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://RookieYan.github.io/post-images/1587482618242.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+&lt;strong&gt;这两步步明显是存在问题的.. 查了一些资料.. 没能解决..&lt;br&gt;
+正确的显示应该是：&lt;/strong&gt;&lt;br&gt;
+&lt;img src=&#34;https://RookieYan.github.io/post-images/1587482705796.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://RookieYan.github.io/post-images/1587482682298.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;尝试了好几种方式，后来阴差阳错的解决了.. 需要知道原因！ 解决方式是，无意间在命令行输入了&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;k3s server &amp;amp; 
+
+k3s server stop
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;似乎执行起了什么东西.. 再使用上面的命令，就可以看到master正常启动了..&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;找到了原因是因为 安装K3S之前未启动Docker!!!!&lt;/strong&gt;&lt;br&gt;
+5. 查看K3S状态&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;/bin/systemctl status k3s
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;3-node节点登录&#34;&gt;&lt;strong&gt;3. Node节点登录&lt;/strong&gt;&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;K3S_TOKEN是server端的，位于/var/lib/rancher/k3s/server/node-token下&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;cat /var/lib/rancher/k3s/server/node-token
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://RookieYan.github.io/post-images/1587484770708.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+2. 在agent节点上安装 并且添加到master中&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;curl -sfL https://docs.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn K3S_URL=https://172.26.XXX.14:6443 K3S_TOKEN=K102edd25b832c1442cffc113ba1dc78cbf1f26921f8481bee022b8a::server:bf20ed594c877be17d03a840 sh -s - --docker
+
+如果填写的是公网IP 则需要去阿里添加安全组 开放6443端口
+如果是内网则不需要做相关操作
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;执行以下命令 检查状态&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;/bin/systemctl status k3s-agent
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;4-需要安装maven和git同时把代码pull下来&#34;&gt;&lt;strong&gt;4.  需要安装maven和Git同时把代码pull下来&lt;/strong&gt;&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;安装JDK&lt;br&gt;
+https://blog.csdn.net/qq_42670220/article/details/90753244&lt;br&gt;
+安装rz（方便本地包上传到服务器）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;yum install -y lrzsz 
+
+安装完需要刷新配置
+source /etc/profile
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;安装Maven&lt;br&gt;
+https://www.cnblogs.com/cannel/p/11104190.html&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;vim /etc/profile
+source /etc/profile
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;安装Git&lt;br&gt;
+https://www.cnblogs.com/wulixia/p/11016684.html&lt;/li&gt;
+&lt;li&gt;使用Git 把代码pull下来&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;这里需要先配置私钥
+ssh-keygen -o
+
+cat cat /root/.ssh/id_rsa.pub
+
+配置到gitblit上
+
+git clone -b devops ssh://yanjianxun@47.93.249.207:29418/~admin/cloud-data-center.git
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;编写 Dockerfile&lt;br&gt;
+跟pom.xml同级目录， 后面会写shell脚本， 这里的Dockerfile 可能没用了。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;FROM java:8-jdk-alpine
+LABEL maintainer sunzhe/www.sunzhe.com
+RUN apk upgrade
+RUN  apk add -U  tzdata &amp;amp;&amp;amp; \
+      ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+COPY ./target/cloud-data-center.jar ./
+EXPOSE 12313
+CMD java -jar /cloud-data-center.jar &amp;gt; cloud-portal.log.out 2&amp;gt;&amp;amp;1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;执行Dockerfile&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;docker build -f Dockerfile -t haimanyun/cloud-data-center:1.0.0 .
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;7&#34;&gt;
+&lt;li&gt;编写脚本&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;5-安装harbor&#34;&gt;&lt;strong&gt;5.  安装harbor&lt;/strong&gt;&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;下载，解压 (如果自家网络好，可以下载下来再上传到服务器)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;wget https://github.com/goharbor/harbor/releases/download/v1.10.2/harbor-offline-installer-v1.10.2.tgz
+
+tar  -zxf  harbor-offline-installer-v1.10.2.tgz
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;修改配置&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;修改 harbor.yml -&amp;gt; hostname:改为本机ip， 修改http:port,  注释掉关于 https的配置，修改密码
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;安装docker-compose&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;yum -y install docker-compose
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;修改docker配置&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;systemctl status docker  找到docker路径
+
+docker.service 中添加配置 -&amp;gt; vim /usr/lib/systemd/system/docker.service 
+        中 ExecStart= 后面添加上 --insecure-registry=39.101.174.47:5656
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://RookieYan.github.io/post-images/1587667006811.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+5.  重启docker&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;systemctl daemon-reload
+systemctl restart docker
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;执行harbor的安装脚本，启动harbor&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;sh install.sh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;7&#34;&gt;
+&lt;li&gt;登录harbor&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;docker login ip:port 用户名默认为admin 密码为自己修改配置文件设置好的
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;6-编写脚本文件maven打包docker制作镜像依赖的是目录下的dockerfile&#34;&gt;&lt;strong&gt;6.  编写脚本文件，maven打包+docker制作镜像（依赖的是目录下的Dockerfile）&lt;/strong&gt;&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Dockerfile&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;FROM java:8-jdk-alpine
+LABEL ceshi/www.ceshi.com
+RUN apk upgrade
+RUN  apk add -U  tzdata &amp;amp;&amp;amp; \
+      ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+COPY ./target/cloud-data-center.jar ./
+EXPOSE 12313
+CMD java -jar /cloud-data-center.jar &amp;gt; cloud-portal.log.out 2&amp;gt;&amp;amp;1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;配置文件&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;cloud-data-center.yaml&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;---
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: cloud-data-center
+  namespace: kube-system 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      project: kube-system
+      app: cloud-data-center
+  template:
+    metadata:
+      labels:
+        project: kube-system 
+        app: cloud-data-center
+    spec:
+      imagePullSecrets:
+      - name: registry-pull-secret
+      containers:
+      - name: cloud-data-center
+        image: 39.101.204.17:5656/k3s/cloud-data-center:2020-04-24-02-20-49
+        imagePullPolicy: Always
+        ports:
+          - protocol: TCP
+            containerPort: 12313
+        env:
+          - name: JAVA_OPTS
+            value: &amp;quot;-Xmx1G&amp;quot;
+        resources:
+          requests:
+            cpu: 0.1
+            memory: 128Mi
+          limits:
+            cpu: 0.1
+            memory: 1Gi
+        readinessProbe:
+          tcpSocket:
+            port: 12313
+          initialDelaySeconds: 60
+          periodSeconds: 10
+        livenessProbe:
+          tcpSocket:
+            port: 12313
+          initialDelaySeconds: 60
+          periodSeconds: 10
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;配置文件&lt;br&gt;
+可以先执行， 执行方式为 kubectl apply -f cloud-data-center-ser.yaml&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;apiVersion: v1
+kind: Service
+metadata:
+  name: cloud-data-center
+  namespace: kube-system
+spec:
+  type: NodePort
+  ports:
+  - port: 12313
+    name: cloud-data-center
+  selector:
+    project: kube-system
+    app: cloud-data-center
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;脚本&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;#!/bin/bash
+docker_registry=39.101.174.47:5656
+kubectl create secret docker-registry registry-pull-secret --docker-server=$docker_registry --docker-username=ceshi --docker-password=Cheshi123456 --docker-email=ceshi@123.com -n kube-system
+#service_list=&amp;quot;cloud-data-center&amp;quot;
+#service_list=${1:-${service_list}}
+service=&amp;quot;cloud-data-center&amp;quot;
+current_dir=$(pwd)
+cd /data/code/cloud-data-center/cloud-data-center
+echo ${current_dir}
+# git checkout devops
+# -b devops ssh://yanjianxun@47.93.249.207:29418/~admin/cloud-data-center.git
+git pull
+mvn -f XX/XX/pom.xml clean
+mvn -f XX/XX/pom.xml install
+image_name=$docker_registry/k3s/${service}:$(date +%F-%H-%M-%S)
+sudo docker build -t ${image_name} .
+sudo docker push ${image_name}
+echo ${current_dir}
+sed -i -r &amp;quot;s#(image: )(.*)#\1$image_name#&amp;quot; ${current_dir}/${service}/${service}.yaml
+kubectl apply -f ${current_dir}/${service}/${service}.yaml
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;7-安装k8s&#34;&gt;&lt;strong&gt;7.  安装K8S&lt;/strong&gt;&lt;/h2&gt;
+">[2020-04-21]K3S从0搭建以及集成JenkinsCICD流程</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" href="https://RookieYan.github.io/post/2020-04-18mysqlyi-sql-de-zhi-xing-liu-cheng/"" data-c="
+          &lt;p&gt;  之前的由于不小心把所有的博客都删了，所以从0开始重新写吧。因为最近在看MySQL和MongoDB相关的，这篇就先从MySQL开始了.. 后续会继续补上MongoDB的内容..&lt;br&gt;
+  这篇主要是讲一下MySQL的基础.. 包括语句的执行流程..&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://RookieYan.github.io/post-images/1587222171337.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+  首先简单介绍一下MySQL的基础结构图，可以从这张图清楚的看出一条语句在MySQL的各个功能模块中的执行过程。&lt;br&gt;
+  大体来说MySQL 可以分为&lt;strong&gt;Server层&lt;/strong&gt; 和 &lt;strong&gt;存储引擎层&lt;/strong&gt;两部分。&lt;br&gt;
+  Server层包含了连接器，分析器，优化器，执行器等.. 涵盖了大部分MySQL的核心功能，一级所有的内置函数（比如时间，日期，数学和加密函数等），所有跨存储引擎的功能都在这一层中，比如存储过程，触发器，视图等等..&lt;/p&gt;
+&lt;p&gt;  存储引擎层则负责数据的存储和提取。他的架构模式是插件式的，支持多种不同的数据库存储引擎，比如InnoDB，MyISAM，Memory等.. 现在比较常用的是InnoDB，在MySQL5.5.5开始成为了MySQL默认的存储引擎。&lt;/p&gt;
+&lt;p&gt;  也就是说你每次在创建表的时候，如果不指定存储引擎，就会默认使用InnoDB存储引擎。当然也可以自定义使用别的存储引擎，比如在 create table 语句中使用 engine=memory 来指定存储引擎创建表。&lt;strong&gt;不同的存储引擎对于数据的存取方式也不相同，支持的功能也不相同，在后面我们会说一下关于不同场景下不同存储引擎的选择。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;接下来介绍一下Server层的各个组件。&lt;/p&gt;
+&lt;h2 id=&#34;连接器&#34;&gt;&lt;strong&gt;连接器&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;  每次我们输入账号密码和MySQL要建立连接的时候，接待我们的就是&lt;strong&gt;连接器&lt;/strong&gt;，他负责跟客户端建立连接，获取权限信息，维持和管理连接。一般的连接命令&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mysql -h$ip -P$port -u$user -p
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;如果用户名或密码不对，你就会收到一个&amp;quot;Access denied for user&amp;quot;的错误，然后客户端程序结束执行。&lt;/li&gt;
+&lt;li&gt;如果用户名密码认证通过，连接器会到权限表里面查出你拥有的权限。之后，这个连接里面的权限判断逻辑，都将依赖于此时读到的权限。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;这样也就意味着，只要一个客户通过连接器建立了与MySQL的连接，
+再去对这个客户帐号进行权限上的操作，都不会即时生效，
+只能等到这次连接结束，下次再建立连接的时候才会生效。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;  如果建立完连接没有后续操作的话，那么这个连接就会处于空闲的状态，你可以在 show processlist 命令中看到它。文本中这个图是 show processlist 的结果，其中的 Command 列显示为“Sleep”的这一行，就表示现在系统里面有一个空闲连接。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://RookieYan.github.io/post-images/1587223843571.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+  客户端如果太长时间没有动静，连接器就会自动断开它。 这个参数主要是由&lt;strong&gt;wait_timeout&lt;/strong&gt;控制的，默认值是 8 小时。&lt;br&gt;
+  而如果恰好在连接断开之后，客户端再次发送请求的话，就会收到错误提醒 Lost connection to MySQL server during query。这时候如果你要继续，就需要重连，然后再执行请求了。&lt;/p&gt;
+&lt;p&gt;   在数据库中，客户端与数据库建立连接的过程是十分复杂且消耗资源的，所以建议使用长链接（&lt;strong&gt;长链接是指如果在客户端与数据库连接成功后，如果客户端持续有请求进来，那么会继续使用当前已经建立好的这个连接。 而短连接主要是指，在每次执行完很少的几次操作后，就自动断开连接，如果再有新的请求，就重新建立连接。 这样比较消耗资源&lt;/strong&gt;）， 但是如果全部使用长连接之后会发现数据库内存占用会涨的飞快，这是因为MySQL在执行过程中，临时使用的内存是管理在连接对象里面的。这些资源会在连接断开的时候才会释放。所以长连接积累下来就会导致内存占用率特别高，被系统强行干掉（OOM），从现象上看就像是MySQL异常重启了。&lt;/p&gt;
+&lt;p&gt;怎么解决这个问题呢？你可以考虑以下两种方案。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;定期断开长连接。使用一段时间，或者程序里面判断执行过一个占用内存的大查询后，断开连接，之后要查询再重连。&lt;/li&gt;
+&lt;li&gt;如果你用的是 MySQL 5.7 或更新版本，可以在每次执行一个比较大的操作后，通过执行 mysql_reset_connection 来重新初始化连接资源。这个过程不需要重连和重新做权限验证，但是会将连接恢复到刚刚创建完时的状态。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;查询缓存&#34;&gt;&lt;strong&gt;查询缓存&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;   在通过连接器创建完连接之后，就要执行SQL命令了，比如一个查询语句，这个时候执行逻辑就会来到第二步，查询缓存。&lt;/p&gt;
+&lt;p&gt;   MySQL拿到一个查询请求后，会先到查询缓存看一下，之前是否执行过这条语句。 之前查询过的会以key-value对的形式，被直接缓存在内存中。key是查询语句，value是查询结果。 如果能够在缓存中找到这个key，那么这个value就会直接返回给客户端。&lt;/p&gt;
+&lt;p&gt;   如果语句不在查询缓存中，就会继续后面的执行阶段，进行查询。查询完成后执行结果就会被存储到查询缓存中。 可以看到，如果命中查询缓存，MySQL不需要执行后面的复杂操作，就可以直接返回结果，这个效率会很高。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;但是在大多数情况下，是不建议使用查询缓存的，为什么呢？因为查询缓存网往弊大于利。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;   主要原因是因为查询缓存失效的概率非常大，为什么呢？因为每次只要对某一张表有更新操作，这个表上所有的查询缓存都会被清空。 因此可能你费劲把结果存起来之后，还没有用呢，一个更新语句就把缓存清空了。这样对于更新操作比较频繁的数据库来说，查询缓存的命中率会非常低。除非是一张静态的lookUp表，很长时间才会更新一次。比如系统配置表，行政区划表等表上的查询才会比较适合使用查询缓存。&lt;br&gt;
+   好在MySQL也提供这种“按需使用”的方式，你可以将参数query_cache_type设置为DEMAND，这样对于默认的SQL语句都不使用查询缓存。 而对于你确定要使用查询缓存的语句可以用SQL_CACHE 显式指定，像下面这个语句一样：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;select SQL_CACHE * from T where ID=10；
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;需要注意的是，MySQL8.0版本已经直接删除了查询缓存功能。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;分析器&#34;&gt;&lt;strong&gt;分析器&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;  如果没有命中查询缓存，就要开始真正执行SQL语句了，首先MySQL需要知道你要做什么，因此需要对MySQL语句做解析。&lt;br&gt;
+  分析器会现做“词法解析”，你输入的是由多个字符串和空格组成的一条SQL语句，MySQL需要识别出里面的字符串分别是什么，代表什么。&lt;/p&gt;
+&lt;p&gt;  MySQL 从你输入的&amp;quot;select&amp;quot;这个关键字识别出来，这是一个查询语句。它也要把字符串“T”识别成“表名 T”，把字符串“ID”识别成“列 ID”。&lt;br&gt;
+  做完了这些识别以后，就要做“语法分析”。根据词法分析的结果，语法分析器会根据语法规则，判断你输入的这个 SQL 语句是否满足 MySQL 语法。&lt;br&gt;
+  如果你的语句不对，就会收到“You have an error in your SQL syntax”的错误提醒，比如下面这个语句 select 少打了开头的字母“s”。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;
+mysql&amp;gt; elect * from t where ID=1;
+
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &#39;elect * from t where ID=1&#39; at line 1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;一般语法错误会提示第一个出现错误的位置，所以你要关注的是紧接“use near”的内容。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://tech.meituan.com/2018/05/20/sql-parser-used-in-mtdp.html&#34;&gt;详细语法SQL解析流程，来自美团技术团队，点击跳转&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;优化器&#34;&gt;&lt;strong&gt;优化器&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;  经过了分析器，MySQL 就知道你要做什么了。在开始执行之前，还要先经过优化器的处理。&lt;br&gt;
+  优化器是在表里面有多个索引的时候，决定使用哪个索引；或者在一个语句有多表关联（join）的时候，决定各个表的连接顺序。比如你执行下面这样的语句，这个语句是执行两个表的 join：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mysql&amp;gt; select * from t1 join t2 using(ID) where t1.c=10 and t2.d=20;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;既可以先从表 t1 里面取出 c=10 的记录的 ID 值，再根据 ID 值关联到表 t2，再判断 t2 里面 d 的值是否等于 20。&lt;/li&gt;
+&lt;li&gt;也可以先从表 t2 里面取出 d=20 的记录的 ID 值，再根据 ID 值关联到 t1，再判断 t1 里面 c 的值是否等于 10。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;优化器阶段完成后，这个语句的执行方案就确定下来了，然后进入执行器阶段。如果你还有一些疑问，比如优化器是怎么选择索引的，有没有可能选择错等等，我会在后面的博客中单独展开说明优化器的内容。&lt;/p&gt;
+&lt;h2 id=&#34;执行器&#34;&gt;&lt;strong&gt;执行器&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;  MySQL 通过分析器知道了你要做什么，通过优化器知道了该怎么做，于是就进入了执行器阶段，开始执行语句。&lt;br&gt;
+  开始执行的时候，要先判断一下你对这个表 T 有没有执行查询的权限，如果没有，就会返回没有权限的错误，如下所示 (在工程实现上，如果命中查询缓存，会在查询缓存返回结果的时候，做权限验证。查询也会在优化器之前调用 precheck 验证权限)。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mysql&amp;gt; select * from T where ID=10;ERROR 1142 (42000): SELECT command denied to user &#39;b&#39;@&#39;localhost&#39; for table &#39;T&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;  如果有权限，就打开表继续执行。打开表的时候，执行器就会根据表的引擎定义，去使用这个引擎提供的接口。&lt;br&gt;
+  比如我们这个例子中的表 T 中，ID 字段没有索引，那么执行器的执行流程是这样的：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;调用 InnoDB 引擎接口取这个表的第一行，判断 ID 值是不是 10，如果不是则跳过，如果是则将这行存在结果集中；&lt;/li&gt;
+&lt;li&gt;调用引擎接口取“下一行”，重复相同的判断逻辑，直到取到这个表的最后一行。&lt;/li&gt;
+&lt;li&gt;执行器将上述遍历过程中所有满足条件的行组成的记录集作为结果集返回给客户端。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;  至此，这个语句就执行完成了。对于有索引的表，执行的逻辑也差不多。第一次调用的是“取满足条件的第一行”这个接口，之后循环取“满足条件的下一行”这个接口，这些接口都是引擎中已经定义好的。&lt;br&gt;
+  你会在数据库的慢查询日志中看到一个 rows_examined 的字段，表示这个语句执行过程中扫描了多少行。这个值就是在执行器每次调用引擎获取数据行的时候累加的。&lt;br&gt;
+  在有些场景下，执行器调用一次，在引擎内部则扫描了多行，因此引擎扫描行数跟 rows_examined 并不是完全相同的。我们后面会专门有一篇文章来讲存储引擎的内部机制，里面会有详细的说明。&lt;/p&gt;
+">[2020-04-18]MySQL（一）SQL的执行流程</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" href="https://RookieYan.github.io/post/2020-04-11chong-xin-kai-shi/"" data-c="
+          &lt;p&gt;  之前因为搭了一个Ngrok，被黑客扫到了，把电脑黑了。然后今天重装了系统，格式化了硬盘，一不小心把博客也都清了... 没办法...  回不去的就留在过去吧...  重新写....&lt;/p&gt;
+&lt;p&gt;  加油...&lt;/p&gt;
+">[2020-04-11]重新开始</a>
+      </div>
+      
+    </div>
+  </div>
+</div>
+<script>
+  // var escape = "[{&#34;content&#34;:&#34;&lt;p&gt;  今天说一下MySQL的两个日志模块，分别是BinLog和RedoLog。&lt;br&gt;\n  可能有的研发同学会听到DBA同事说MySQL可以恢复到半个月内的任意一秒的状态，在惊奇的同时，可能会好奇是怎么实现的。我们今天就来聊聊这个事儿。&lt;/p&gt;\n&lt;p&gt;  假如我们现在有一张表T，只有主键Id和一个整型字段 c，然后现在我们要将Id=2这一行的值加1，那么SQL语句应该这么写：&lt;/p&gt;\n&lt;pre&gt;&lt;code&gt;update T set c=c+1 where ID=2;\n&lt;/code&gt;&lt;/pre&gt;\n&lt;p&gt;  从上一篇&lt;a href=\&#34;https://rookieyan.github.io/post/2020-04-18mysqlyi-sql-de-zhi-xing-liu-cheng/\&#34;&gt;MySQL（一）SQL的执行流程&lt;/a&gt;我们基本可以很明确这条更新的SQL语句的执行流程会和查询流程一样把整个流程走一遍。前面我们也有说过，在对表做更新操作的时候，跟这个表有关的查询缓存会失效，所以这条语句的执行会把表T上的查询缓存中结果都清空。这也是我们一般不建议使用查询缓存的原因。&lt;br&gt;\n&lt;img src=\&#34;https://RookieYan.github.io/post-images/1588350320310.png\&#34; alt=\&#34;\&#34; loading=\&#34;lazy\&#34;&gt;&lt;br&gt;\n  接下来分析器会通过词法和语法解析知道这是一条更新语句。优化器会决定要使用ID对应的主键索引。执行器负责具体的执行操作，找到对应的这一行，然后更新。&lt;/p&gt;\n&lt;p&gt;  和查询流程不一样的是，在更新流程中，会涉及到两个比较重要的日志模块。他们正是我们今天要讨论的主角：&lt;strong&gt;redolog（重做日志）和binlog（归档日志）&lt;/strong&gt;。 如果接触过MySQL，那么这两个词肯定是绕不过去的。并且这两个日志模块在设计上也有很多有意思的地方，可以将设计思路运用到自己平时的设计和开发中。&lt;/p&gt;\n&lt;h2 id=\&#34;1-redo-log\&#34;&gt;**1. redo log **&lt;/h2&gt;\n&lt;p&gt;  有一个🌰可以很好的解释这个日志模块。《孔乙己》那篇文章中，酒馆老板有一个小黑板和一本账本，专门记录客人赊账的情况。如果有人要赊账或者还账的话，酒馆老板一般有两种做法：&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;把账本翻出来，找到客人对应的记录，做更新操作。&lt;/li&gt;\n&lt;li&gt;先在小黑板上记录下来这次的帐，等到打烊后再把账单翻出来核算。&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;  在生意比较忙碌的情况下，酒馆老板一定会选择后者，因为前者是在太麻烦了，需要从账本中准确找到客人的记录（可能还没有索引），数目比较大的话可能还需要用算盘算一下，最后再把结果写到账本上。如果比较忙的情况下。这种方式一定是不可取的。 不如先写在小黑板上，等到空闲的时候，再去把账目同步到账本上。&lt;/p&gt;\n&lt;p&gt;  同样的在MySQL中也有相似的问题，每一次的更新操作都需要写进磁盘里，然后磁盘也需要找到对应的记录做更新操作。整个过程的IO成本和查找成本都是比较高的。为了解决这个问题，MySQL的设计者就想到了类似于酒馆老板记账的思路来提升效率，减少IO。&lt;/p&gt;\n&lt;p&gt;  所以小黑板和账单配合的过程，就是MySQL里经常说到的&lt;strong&gt;WAL技术，WAL技术的全称是Write-Ahead Logging，它的关键点就是先写日志，再写磁盘，也就是先写粉板，等不忙的时候再写账本。&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;  具体来说就是，当有一条记录需要被更新的时候，InnoDB引擎就会先把记录给写到redo log中（小黑板），并且更新内存。 这个时候更新就算完成了。 同时InnoDB会在比较合适的时候，把这个操作记录更新到磁盘中，而这个更新一般会是在系统比较空闲的时候去做的（类似于老板打烊后做的事儿）。&lt;/p&gt;\n&lt;p&gt;  当然你可能会问，会不会有一种情况，就是今天生意太好了，小黑板都被写满了，那怎么办呢？ 如果是这种情况的话，那么只能让老板停下手中的活，先去把账本更新了，然后擦除黑板上的记录，腾出空间，再写上新的记录。InnoDB的redo log是固定大小的，比如可以配置一组是4个文件，每个文件小为1G，那么这块“小黑板”总共就可以记录4G的操作记录，从头开始写，写到末尾就再从头开始写。如下图所示：&lt;br&gt;\n&lt;img src=\&#34;https://RookieYan.github.io/post-images/1588354832158.png\&#34; alt=\&#34;\&#34; loading=\&#34;lazy\&#34;&gt;&lt;br&gt;\n  write pos是当前记录的位置，一边写一边后移，写到LogFile3的末尾就到了LogFile0的开头继续写，check point是当前要擦除的位置，也是一样要往后移并且循环的，擦除记录前要把记录更新到数据文件中。&lt;/p&gt;\n&lt;p&gt;  write pos 和 checkpoint 之间的绿色部分是“小黑板”上还空着的部分，可以用来记录新的操作。如果 write pos 追上 checkpoint，表示“小黑板”满了，这时候不能再执行新的更新，得停下来先擦掉一些记录，把 checkpoint 推进一下。&lt;/p&gt;\n&lt;p&gt;  至此，有了redolog，InnoDB就可以保证数据在发生数据库异常重启的时候，之前提交的数据都不会丢失，这个能力称为&lt;strong&gt;crash-safe&lt;/strong&gt;。&lt;/p&gt;\n&lt;h2 id=\&#34;2-bin-log\&#34;&gt;**2. bin log **&lt;/h2&gt;\n&#34;,&#34;fileName&#34;:&#34;2020-04-18mysqler-redolog-he-binlog&#34;,&#34;abstract&#34;:&#34;&#34;,&#34;title&#34;:&#34; [2020-04-18]MySQL（二）RedoLog和BinLog&#34;,&#34;tags&#34;:[],&#34;date&#34;:&#34;2020-05-02 00:04:49&#34;,&#34;dateFormat&#34;:&#34;2020-05-02&#34;,&#34;feature&#34;:&#34;&#34;,&#34;link&#34;:&#34;https://RookieYan.github.io/post/2020-04-18mysqler-redolog-he-binlog/&#34;,&#34;hideInList&#34;:false,&#34;isTop&#34;:false,&#34;stats&#34;:{&#34;text&#34;:&#34;5 min read&#34;,&#34;time&#34;:279000,&#34;words&#34;:1343,&#34;minutes&#34;:5},&#34;description&#34;:&#34;  今天说一下MySQL的两个日志模块，分别是BinLog和RedoLog。\n  可能有的研发同学会听到DBA同事说MySQL可以恢复到半个月内的任意一秒的状态，在惊奇的同时，可能会好奇是怎么实现的。我们今天就来聊聊这个事儿。\n  假如我们...&#34;,&#34;toc&#34;:&#34;&lt;ul class=\&#34;markdownIt-TOC\&#34;&gt;\n&lt;li&gt;\n&lt;ul&gt;\n&lt;li&gt;&lt;a href=\&#34;#1-redo-log\&#34;&gt;**1. redo log **&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;a href=\&#34;#2-bin-log\&#34;&gt;**2. bin log **&lt;/a&gt;&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/li&gt;\n&lt;/ul&gt;\n&#34;},{&#34;content&#34;:&#34;&lt;h2 id=\&#34;0-准备工作\&#34;&gt;&lt;strong&gt;0. 准备工作&lt;/strong&gt;&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;首先准备两台ECS（我用的是阿里云的4核8G，买了一个周，准备搞一下）&lt;/li&gt;\n&lt;/ul&gt;\n&lt;h2 id=\&#34;1-环境配置\&#34;&gt;&lt;strong&gt;1. 环境配置&lt;/strong&gt;&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;需要Docker 19.03（如果使用较低版本，则可能会出现K3S无法启动的问题）&lt;/li&gt;\n&lt;/ul&gt;\n&lt;ol&gt;\n&lt;li&gt;需要把yum 包更新到最新&lt;/li&gt;\n&lt;/ol&gt;\n&lt;pre&gt;&lt;code&gt;yum  update\n&lt;/code&gt;&lt;/pre&gt;\n&lt;p&gt;&lt;img src=\&#34;https://RookieYan.github.io/post-images/1587476469607.png\&#34; alt=\&#34;\&#34; loading=\&#34;lazy\&#34;&gt;&lt;br&gt;\n2. 安装需要的依赖包 yum-util提供yum-config-manager功能，另外两个是devicemapper驱动依赖的。&lt;/p&gt;\n&lt;pre&gt;&lt;code&gt;yum install -y yum-utils  device-mapper-persistent-data  lvm2\n&lt;/code&gt;&lt;/pre&gt;\n&lt;p&gt;&lt;img src=\&#34;https://RookieYan.github.io/post-images/1587476490002.png\&#34; alt=\&#34;\&#34; loading=\&#34;lazy\&#34;&gt;&lt;br&gt;\n3. 设置yum源&lt;/p&gt;\n&lt;pre&gt;&lt;code&gt;yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo\n&lt;/code&gt;&lt;/pre&gt;\n&lt;figure data-type=\&#34;image\&#34; tabindex=\&#34;1\&#34;&gt;&lt;img src=\&#34;https://RookieYan.github.io/post-images/1587476599172.png\&#34; alt=\&#34;\&#34; loading=\&#34;lazy\&#34;&gt;&lt;/figure&gt;\n&lt;ol start=\&#34;4\&#34;&gt;\n&lt;li&gt;安装docker，出现输入的界面都输入y&lt;/li&gt;\n&lt;/ol&gt;\n&lt;pre&gt;&lt;code&gt;yum install  -y docker-ce\n&lt;/code&gt;&lt;/pre&gt;\n&lt;p&gt;&lt;img src=\&#34;https://RookieYan.github.io/post-images/1587476923202.png\&#34; alt=\&#34;\&#34; loading=\&#34;lazy\&#34;&gt;&lt;br&gt;\n5. 安装完成查看版本&lt;/p&gt;\n&lt;pre&gt;&lt;code&gt;docker -v\n&lt;/code&gt;&lt;/pre&gt;\n&lt;p&gt;&lt;img src=\&#34;https://RookieYan.github.io/post-images/1587476969274.png\&#34; alt=\&#34;\&#34; loading=\&#34;lazy\&#34;&gt;&lt;br&gt;\n6.启动 Docker&lt;/p&gt;\n&lt;pre&gt;&lt;code&gt;/bin/systemctl start docker.service\n如果不启动docker 会导致K3S无法正常启动\n&lt;/code&gt;&lt;/pre&gt;\n&lt;h2 id=\&#34;2-安装k3smaster\&#34;&gt;&lt;strong&gt;2. 安装K3SMaster&lt;/strong&gt;&lt;/h2&gt;\n&lt;ol&gt;\n&lt;li&gt;国内节点比较快&lt;/li&gt;\n&lt;/ol&gt;\n&lt;pre&gt;&lt;code&gt;curl -sfL https://docs.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn sh -s - server --docker\n&lt;/code&gt;&lt;/pre&gt;\n&lt;figure data-type=\&#34;image\&#34; tabindex=\&#34;2\&#34;&gt;&lt;img src=\&#34;https://RookieYan.github.io/post-images/1587477633426.png\&#34; alt=\&#34;\&#34; loading=\&#34;lazy\&#34;&gt;&lt;/figure&gt;\n&lt;ol start=\&#34;2\&#34;&gt;\n&lt;li&gt;从上面的安装日志也可以看到kubectl只是个软链接，详细如下所示：&lt;/li&gt;\n&lt;/ol&gt;\n&lt;pre&gt;&lt;code&gt;which kubectl\n\nls -l /usr/local/bin/kubectl\n&lt;/code&gt;&lt;/pre&gt;\n&lt;p&gt;&lt;img src=\&#34;https://RookieYan.github.io/post-images/1587482331193.png\&#34; alt=\&#34;\&#34; loading=\&#34;lazy\&#34;&gt;&lt;br&gt;\n3. 确认版本信息&lt;/p&gt;\n&lt;pre&gt;&lt;code&gt;kubectl version\n&lt;/code&gt;&lt;/pre&gt;\n&lt;p&gt;&lt;img src=\&#34;https://RookieYan.github.io/post-images/1587482516688.png\&#34; alt=\&#34;\&#34; loading=\&#34;lazy\&#34;&gt;&lt;br&gt;\n4. 获取节点信息&lt;/p&gt;\n&lt;pre&gt;&lt;code&gt;kubectl get node -o wide\n&lt;/code&gt;&lt;/pre&gt;\n&lt;p&gt;&lt;img src=\&#34;https://RookieYan.github.io/post-images/1587482618242.png\&#34; alt=\&#34;\&#34; loading=\&#34;lazy\&#34;&gt;&lt;br&gt;\n&lt;strong&gt;这两步步明显是存在问题的.. 查了一些资料.. 没能解决..&lt;br&gt;\n正确的显示应该是：&lt;/strong&gt;&lt;br&gt;\n&lt;img src=\&#34;https://RookieYan.github.io/post-images/1587482705796.png\&#34; alt=\&#34;\&#34; loading=\&#34;lazy\&#34;&gt;&lt;br&gt;\n&lt;img src=\&#34;https://RookieYan.github.io/post-images/1587482682298.png\&#34; alt=\&#34;\&#34; loading=\&#34;lazy\&#34;&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;尝试了好几种方式，后来阴差阳错的解决了.. 需要知道原因！ 解决方式是，无意间在命令行输入了&lt;/strong&gt;&lt;/p&gt;\n&lt;pre&gt;&lt;code&gt;k3s server &amp;amp; \n\nk3s server stop\n&lt;/code&gt;&lt;/pre&gt;\n&lt;p&gt;&lt;strong&gt;似乎执行起了什么东西.. 再使用上面的命令，就可以看到master正常启动了..&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;找到了原因是因为 安装K3S之前未启动Docker!!!!&lt;/strong&gt;&lt;br&gt;\n5. 查看K3S状态&lt;/p&gt;\n&lt;pre&gt;&lt;code&gt;/bin/systemctl status k3s\n&lt;/code&gt;&lt;/pre&gt;\n&lt;h2 id=\&#34;3-node节点登录\&#34;&gt;&lt;strong&gt;3. Node节点登录&lt;/strong&gt;&lt;/h2&gt;\n&lt;ol&gt;\n&lt;li&gt;K3S_TOKEN是server端的，位于/var/lib/rancher/k3s/server/node-token下&lt;/li&gt;\n&lt;/ol&gt;\n&lt;pre&gt;&lt;code&gt;cat /var/lib/rancher/k3s/server/node-token\n&lt;/code&gt;&lt;/pre&gt;\n&lt;p&gt;&lt;img src=\&#34;https://RookieYan.github.io/post-images/1587484770708.png\&#34; alt=\&#34;\&#34; loading=\&#34;lazy\&#34;&gt;&lt;br&gt;\n2. 在agent节点上安装 并且添加到master中&lt;/p&gt;\n&lt;pre&gt;&lt;code&gt;curl -sfL https://docs.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn K3S_URL=https://172.26.XXX.14:6443 K3S_TOKEN=K102edd25b832c1442cffc113ba1dc78cbf1f26921f8481bee022b8a::server:bf20ed594c877be17d03a840 sh -s - --docker\n\n如果填写的是公网IP 则需要去阿里添加安全组 开放6443端口\n如果是内网则不需要做相关操作\n&lt;/code&gt;&lt;/pre&gt;\n&lt;ol start=\&#34;3\&#34;&gt;\n&lt;li&gt;执行以下命令 检查状态&lt;/li&gt;\n&lt;/ol&gt;\n&lt;pre&gt;&lt;code&gt;/bin/systemctl status k3s-agent\n&lt;/code&gt;&lt;/pre&gt;\n&lt;h2 id=\&#34;4-需要安装maven和git同时把代码pull下来\&#34;&gt;&lt;strong&gt;4.  需要安装maven和Git同时把代码pull下来&lt;/strong&gt;&lt;/h2&gt;\n&lt;ol&gt;\n&lt;li&gt;安装JDK&lt;br&gt;\nhttps://blog.csdn.net/qq_42670220/article/details/90753244&lt;br&gt;\n安装rz（方便本地包上传到服务器）&lt;/li&gt;\n&lt;/ol&gt;\n&lt;pre&gt;&lt;code&gt;yum install -y lrzsz \n\n安装完需要刷新配置\nsource /etc/profile\n&lt;/code&gt;&lt;/pre&gt;\n&lt;ol start=\&#34;2\&#34;&gt;\n&lt;li&gt;安装Maven&lt;br&gt;\nhttps://www.cnblogs.com/cannel/p/11104190.html&lt;/li&gt;\n&lt;/ol&gt;\n&lt;pre&gt;&lt;code&gt;vim /etc/profile\nsource /etc/profile\n&lt;/code&gt;&lt;/pre&gt;\n&lt;ol start=\&#34;3\&#34;&gt;\n&lt;li&gt;安装Git&lt;br&gt;\nhttps://www.cnblogs.com/wulixia/p/11016684.html&lt;/li&gt;\n&lt;li&gt;使用Git 把代码pull下来&lt;/li&gt;\n&lt;/ol&gt;\n&lt;pre&gt;&lt;code&gt;这里需要先配置私钥\nssh-keygen -o\n\ncat cat /root/.ssh/id_rsa.pub\n\n配置到gitblit上\n\ngit clone -b devops ssh://yanjianxun@47.93.249.207:29418/~admin/cloud-data-center.git\n&lt;/code&gt;&lt;/pre&gt;\n&lt;ol start=\&#34;5\&#34;&gt;\n&lt;li&gt;编写 Dockerfile&lt;br&gt;\n跟pom.xml同级目录， 后面会写shell脚本， 这里的Dockerfile 可能没用了。&lt;/li&gt;\n&lt;/ol&gt;\n&lt;pre&gt;&lt;code&gt;FROM java:8-jdk-alpine\nLABEL maintainer sunzhe/www.sunzhe.com\nRUN apk upgrade\nRUN  apk add -U  tzdata &amp;amp;&amp;amp; \\\n      ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime\nCOPY ./target/cloud-data-center.jar ./\nEXPOSE 12313\nCMD java -jar /cloud-data-center.jar &amp;gt; cloud-portal.log.out 2&amp;gt;&amp;amp;1\n&lt;/code&gt;&lt;/pre&gt;\n&lt;ol start=\&#34;6\&#34;&gt;\n&lt;li&gt;执行Dockerfile&lt;/li&gt;\n&lt;/ol&gt;\n&lt;pre&gt;&lt;code&gt;docker build -f Dockerfile -t haimanyun/cloud-data-center:1.0.0 .\n&lt;/code&gt;&lt;/pre&gt;\n&lt;ol start=\&#34;7\&#34;&gt;\n&lt;li&gt;编写脚本&lt;/li&gt;\n&lt;/ol&gt;\n&lt;h2 id=\&#34;5-安装harbor\&#34;&gt;&lt;strong&gt;5.  安装harbor&lt;/strong&gt;&lt;/h2&gt;\n&lt;ol&gt;\n&lt;li&gt;下载，解压 (如果自家网络好，可以下载下来再上传到服务器)&lt;/li&gt;\n&lt;/ol&gt;\n&lt;pre&gt;&lt;code&gt;wget https://github.com/goharbor/harbor/releases/download/v1.10.2/harbor-offline-installer-v1.10.2.tgz\n\ntar  -zxf  harbor-offline-installer-v1.10.2.tgz\n&lt;/code&gt;&lt;/pre&gt;\n&lt;ol start=\&#34;2\&#34;&gt;\n&lt;li&gt;修改配置&lt;/li&gt;\n&lt;/ol&gt;\n&lt;pre&gt;&lt;code&gt;修改 harbor.yml -&amp;gt; hostname:改为本机ip， 修改http:port,  注释掉关于 https的配置，修改密码\n&lt;/code&gt;&lt;/pre&gt;\n&lt;ol start=\&#34;3\&#34;&gt;\n&lt;li&gt;安装docker-compose&lt;/li&gt;\n&lt;/ol&gt;\n&lt;pre&gt;&lt;code&gt;yum -y install docker-compose\n&lt;/code&gt;&lt;/pre&gt;\n&lt;ol start=\&#34;4\&#34;&gt;\n&lt;li&gt;修改docker配置&lt;/li&gt;\n&lt;/ol&gt;\n&lt;pre&gt;&lt;code&gt;systemctl status docker  找到docker路径\n\ndocker.service 中添加配置 -&amp;gt; vim /usr/lib/systemd/system/docker.service \n        中 ExecStart= 后面添加上 --insecure-registry=39.101.174.47:5656\n&lt;/code&gt;&lt;/pre&gt;\n&lt;p&gt;&lt;img src=\&#34;https://RookieYan.github.io/post-images/1587667006811.png\&#34; alt=\&#34;\&#34; loading=\&#34;lazy\&#34;&gt;&lt;br&gt;\n5.  重启docker&lt;/p&gt;\n&lt;pre&gt;&lt;code&gt;systemctl daemon-reload\nsystemctl restart docker\n&lt;/code&gt;&lt;/pre&gt;\n&lt;ol start=\&#34;6\&#34;&gt;\n&lt;li&gt;执行harbor的安装脚本，启动harbor&lt;/li&gt;\n&lt;/ol&gt;\n&lt;pre&gt;&lt;code&gt;sh install.sh\n&lt;/code&gt;&lt;/pre&gt;\n&lt;ol start=\&#34;7\&#34;&gt;\n&lt;li&gt;登录harbor&lt;/li&gt;\n&lt;/ol&gt;\n&lt;pre&gt;&lt;code&gt;docker login ip:port 用户名默认为admin 密码为自己修改配置文件设置好的\n&lt;/code&gt;&lt;/pre&gt;\n&lt;h2 id=\&#34;6-编写脚本文件maven打包docker制作镜像依赖的是目录下的dockerfile\&#34;&gt;&lt;strong&gt;6.  编写脚本文件，maven打包+docker制作镜像（依赖的是目录下的Dockerfile）&lt;/strong&gt;&lt;/h2&gt;\n&lt;ol&gt;\n&lt;li&gt;Dockerfile&lt;/li&gt;\n&lt;/ol&gt;\n&lt;pre&gt;&lt;code&gt;FROM java:8-jdk-alpine\nLABEL ceshi/www.ceshi.com\nRUN apk upgrade\nRUN  apk add -U  tzdata &amp;amp;&amp;amp; \\\n      ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime\nCOPY ./target/cloud-data-center.jar ./\nEXPOSE 12313\nCMD java -jar /cloud-data-center.jar &amp;gt; cloud-portal.log.out 2&amp;gt;&amp;amp;1\n&lt;/code&gt;&lt;/pre&gt;\n&lt;ol start=\&#34;2\&#34;&gt;\n&lt;li&gt;配置文件&lt;/li&gt;\n&lt;/ol&gt;\n&lt;p&gt;cloud-data-center.yaml&lt;/p&gt;\n&lt;pre&gt;&lt;code&gt;---\napiVersion: apps/v1\nkind: Deployment \nmetadata:\n  name: cloud-data-center\n  namespace: kube-system \nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      project: kube-system\n      app: cloud-data-center\n  template:\n    metadata:\n      labels:\n        project: kube-system \n        app: cloud-data-center\n    spec:\n      imagePullSecrets:\n      - name: registry-pull-secret\n      containers:\n      - name: cloud-data-center\n        image: 39.101.204.17:5656/k3s/cloud-data-center:2020-04-24-02-20-49\n        imagePullPolicy: Always\n        ports:\n          - protocol: TCP\n            containerPort: 12313\n        env:\n          - name: JAVA_OPTS\n            value: &amp;quot;-Xmx1G&amp;quot;\n        resources:\n          requests:\n            cpu: 0.1\n            memory: 128Mi\n          limits:\n            cpu: 0.1\n            memory: 1Gi\n        readinessProbe:\n          tcpSocket:\n            port: 12313\n          initialDelaySeconds: 60\n          periodSeconds: 10\n        livenessProbe:\n          tcpSocket:\n            port: 12313\n          initialDelaySeconds: 60\n          periodSeconds: 10\n&lt;/code&gt;&lt;/pre&gt;\n&lt;ol start=\&#34;3\&#34;&gt;\n&lt;li&gt;配置文件&lt;br&gt;\n可以先执行， 执行方式为 kubectl apply -f cloud-data-center-ser.yaml&lt;/li&gt;\n&lt;/ol&gt;\n&lt;pre&gt;&lt;code&gt;apiVersion: v1\nkind: Service\nmetadata:\n  name: cloud-data-center\n  namespace: kube-system\nspec:\n  type: NodePort\n  ports:\n  - port: 12313\n    name: cloud-data-center\n  selector:\n    project: kube-system\n    app: cloud-data-center\n&lt;/code&gt;&lt;/pre&gt;\n&lt;ol start=\&#34;4\&#34;&gt;\n&lt;li&gt;脚本&lt;/li&gt;\n&lt;/ol&gt;\n&lt;pre&gt;&lt;code&gt;#!/bin/bash\ndocker_registry=39.101.174.47:5656\nkubectl create secret docker-registry registry-pull-secret --docker-server=$docker_registry --docker-username=ceshi --docker-password=Cheshi123456 --docker-email=ceshi@123.com -n kube-system\n#service_list=&amp;quot;cloud-data-center&amp;quot;\n#service_list=${1:-${service_list}}\nservice=&amp;quot;cloud-data-center&amp;quot;\ncurrent_dir=$(pwd)\ncd /data/code/cloud-data-center/cloud-data-center\necho ${current_dir}\n# git checkout devops\n# -b devops ssh://yanjianxun@47.93.249.207:29418/~admin/cloud-data-center.git\ngit pull\nmvn -f XX/XX/pom.xml clean\nmvn -f XX/XX/pom.xml install\nimage_name=$docker_registry/k3s/${service}:$(date +%F-%H-%M-%S)\nsudo docker build -t ${image_name} .\nsudo docker push ${image_name}\necho ${current_dir}\nsed -i -r &amp;quot;s#(image: )(.*)#\\1$image_name#&amp;quot; ${current_dir}/${service}/${service}.yaml\nkubectl apply -f ${current_dir}/${service}/${service}.yaml\n&lt;/code&gt;&lt;/pre&gt;\n&lt;h2 id=\&#34;7-安装k8s\&#34;&gt;&lt;strong&gt;7.  安装K8S&lt;/strong&gt;&lt;/h2&gt;\n&#34;,&#34;fileName&#34;:&#34;2020-04-21k3s-cong-0-da-jian&#34;,&#34;abstract&#34;:&#34;&#34;,&#34;title&#34;:&#34;[2020-04-21]K3S从0搭建以及集成JenkinsCICD流程&#34;,&#34;tags&#34;:[],&#34;date&#34;:&#34;2020-04-21 21:24:00&#34;,&#34;dateFormat&#34;:&#34;2020-04-21&#34;,&#34;feature&#34;:&#34;&#34;,&#34;link&#34;:&#34;https://RookieYan.github.io/post/2020-04-21k3s-cong-0-da-jian/&#34;,&#34;hideInList&#34;:false,&#34;isTop&#34;:false,&#34;stats&#34;:{&#34;text&#34;:&#34;7 min read&#34;,&#34;time&#34;:394000,&#34;words&#34;:1327,&#34;minutes&#34;:7},&#34;description&#34;:&#34;0. 准备工作\n\n首先准备两台ECS（我用的是阿里云的4核8G，买了一个周，准备搞一下）\n\n1. 环境配置\n\n需要Docker 19.03（如果使用较低版本，则可能会出现K3S无法启动的问题）\n\n\n需要把yum 包更新到最新\n\nyum  u...&#34;,&#34;toc&#34;:&#34;&lt;ul class=\&#34;markdownIt-TOC\&#34;&gt;\n&lt;li&gt;\n&lt;ul&gt;\n&lt;li&gt;&lt;a href=\&#34;#0-%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C\&#34;&gt;&lt;strong&gt;0. 准备工作&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;a href=\&#34;#1-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE\&#34;&gt;&lt;strong&gt;1. 环境配置&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;a href=\&#34;#2-%E5%AE%89%E8%A3%85k3smaster\&#34;&gt;&lt;strong&gt;2. 安装K3SMaster&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;a href=\&#34;#3-node%E8%8A%82%E7%82%B9%E7%99%BB%E5%BD%95\&#34;&gt;&lt;strong&gt;3. Node节点登录&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;a href=\&#34;#4-%E9%9C%80%E8%A6%81%E5%AE%89%E8%A3%85maven%E5%92%8Cgit%E5%90%8C%E6%97%B6%E6%8A%8A%E4%BB%A3%E7%A0%81pull%E4%B8%8B%E6%9D%A5\&#34;&gt;&lt;strong&gt;4.  需要安装maven和Git同时把代码pull下来&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;a href=\&#34;#5-%E5%AE%89%E8%A3%85harbor\&#34;&gt;&lt;strong&gt;5.  安装harbor&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;a href=\&#34;#6-%E7%BC%96%E5%86%99%E8%84%9A%E6%9C%AC%E6%96%87%E4%BB%B6maven%E6%89%93%E5%8C%85docker%E5%88%B6%E4%BD%9C%E9%95%9C%E5%83%8F%E4%BE%9D%E8%B5%96%E7%9A%84%E6%98%AF%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84dockerfile\&#34;&gt;&lt;strong&gt;6.  编写脚本文件，maven打包+docker制作镜像（依赖的是目录下的Dockerfile）&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;a href=\&#34;#7-%E5%AE%89%E8%A3%85k8s\&#34;&gt;&lt;strong&gt;7.  安装K8S&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/li&gt;\n&lt;/ul&gt;\n&#34;},{&#34;content&#34;:&#34;&lt;p&gt;  之前的由于不小心把所有的博客都删了，所以从0开始重新写吧。因为最近在看MySQL和MongoDB相关的，这篇就先从MySQL开始了.. 后续会继续补上MongoDB的内容..&lt;br&gt;\n  这篇主要是讲一下MySQL的基础.. 包括语句的执行流程..&lt;/p&gt;\n&lt;p&gt;&lt;img src=\&#34;https://RookieYan.github.io/post-images/1587222171337.png\&#34; alt=\&#34;\&#34; loading=\&#34;lazy\&#34;&gt;&lt;br&gt;\n  首先简单介绍一下MySQL的基础结构图，可以从这张图清楚的看出一条语句在MySQL的各个功能模块中的执行过程。&lt;br&gt;\n  大体来说MySQL 可以分为&lt;strong&gt;Server层&lt;/strong&gt; 和 &lt;strong&gt;存储引擎层&lt;/strong&gt;两部分。&lt;br&gt;\n  Server层包含了连接器，分析器，优化器，执行器等.. 涵盖了大部分MySQL的核心功能，一级所有的内置函数（比如时间，日期，数学和加密函数等），所有跨存储引擎的功能都在这一层中，比如存储过程，触发器，视图等等..&lt;/p&gt;\n&lt;p&gt;  存储引擎层则负责数据的存储和提取。他的架构模式是插件式的，支持多种不同的数据库存储引擎，比如InnoDB，MyISAM，Memory等.. 现在比较常用的是InnoDB，在MySQL5.5.5开始成为了MySQL默认的存储引擎。&lt;/p&gt;\n&lt;p&gt;  也就是说你每次在创建表的时候，如果不指定存储引擎，就会默认使用InnoDB存储引擎。当然也可以自定义使用别的存储引擎，比如在 create table 语句中使用 engine=memory 来指定存储引擎创建表。&lt;strong&gt;不同的存储引擎对于数据的存取方式也不相同，支持的功能也不相同，在后面我们会说一下关于不同场景下不同存储引擎的选择。&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;接下来介绍一下Server层的各个组件。&lt;/p&gt;\n&lt;h2 id=\&#34;连接器\&#34;&gt;&lt;strong&gt;连接器&lt;/strong&gt;&lt;/h2&gt;\n&lt;p&gt;  每次我们输入账号密码和MySQL要建立连接的时候，接待我们的就是&lt;strong&gt;连接器&lt;/strong&gt;，他负责跟客户端建立连接，获取权限信息，维持和管理连接。一般的连接命令&lt;/p&gt;\n&lt;pre&gt;&lt;code&gt;mysql -h$ip -P$port -u$user -p\n&lt;/code&gt;&lt;/pre&gt;\n&lt;ul&gt;\n&lt;li&gt;如果用户名或密码不对，你就会收到一个&amp;quot;Access denied for user&amp;quot;的错误，然后客户端程序结束执行。&lt;/li&gt;\n&lt;li&gt;如果用户名密码认证通过，连接器会到权限表里面查出你拥有的权限。之后，这个连接里面的权限判断逻辑，都将依赖于此时读到的权限。&lt;/li&gt;\n&lt;/ul&gt;\n&lt;pre&gt;&lt;code&gt;这样也就意味着，只要一个客户通过连接器建立了与MySQL的连接，\n再去对这个客户帐号进行权限上的操作，都不会即时生效，\n只能等到这次连接结束，下次再建立连接的时候才会生效。\n&lt;/code&gt;&lt;/pre&gt;\n&lt;p&gt;  如果建立完连接没有后续操作的话，那么这个连接就会处于空闲的状态，你可以在 show processlist 命令中看到它。文本中这个图是 show processlist 的结果，其中的 Command 列显示为“Sleep”的这一行，就表示现在系统里面有一个空闲连接。&lt;/p&gt;\n&lt;p&gt;&lt;img src=\&#34;https://RookieYan.github.io/post-images/1587223843571.png\&#34; alt=\&#34;\&#34; loading=\&#34;lazy\&#34;&gt;&lt;br&gt;\n  客户端如果太长时间没有动静，连接器就会自动断开它。 这个参数主要是由&lt;strong&gt;wait_timeout&lt;/strong&gt;控制的，默认值是 8 小时。&lt;br&gt;\n  而如果恰好在连接断开之后，客户端再次发送请求的话，就会收到错误提醒 Lost connection to MySQL server during query。这时候如果你要继续，就需要重连，然后再执行请求了。&lt;/p&gt;\n&lt;p&gt;   在数据库中，客户端与数据库建立连接的过程是十分复杂且消耗资源的，所以建议使用长链接（&lt;strong&gt;长链接是指如果在客户端与数据库连接成功后，如果客户端持续有请求进来，那么会继续使用当前已经建立好的这个连接。 而短连接主要是指，在每次执行完很少的几次操作后，就自动断开连接，如果再有新的请求，就重新建立连接。 这样比较消耗资源&lt;/strong&gt;）， 但是如果全部使用长连接之后会发现数据库内存占用会涨的飞快，这是因为MySQL在执行过程中，临时使用的内存是管理在连接对象里面的。这些资源会在连接断开的时候才会释放。所以长连接积累下来就会导致内存占用率特别高，被系统强行干掉（OOM），从现象上看就像是MySQL异常重启了。&lt;/p&gt;\n&lt;p&gt;怎么解决这个问题呢？你可以考虑以下两种方案。&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;定期断开长连接。使用一段时间，或者程序里面判断执行过一个占用内存的大查询后，断开连接，之后要查询再重连。&lt;/li&gt;\n&lt;li&gt;如果你用的是 MySQL 5.7 或更新版本，可以在每次执行一个比较大的操作后，通过执行 mysql_reset_connection 来重新初始化连接资源。这个过程不需要重连和重新做权限验证，但是会将连接恢复到刚刚创建完时的状态。&lt;/li&gt;\n&lt;/ul&gt;\n&lt;h2 id=\&#34;查询缓存\&#34;&gt;&lt;strong&gt;查询缓存&lt;/strong&gt;&lt;/h2&gt;\n&lt;p&gt;   在通过连接器创建完连接之后，就要执行SQL命令了，比如一个查询语句，这个时候执行逻辑就会来到第二步，查询缓存。&lt;/p&gt;\n&lt;p&gt;   MySQL拿到一个查询请求后，会先到查询缓存看一下，之前是否执行过这条语句。 之前查询过的会以key-value对的形式，被直接缓存在内存中。key是查询语句，value是查询结果。 如果能够在缓存中找到这个key，那么这个value就会直接返回给客户端。&lt;/p&gt;\n&lt;p&gt;   如果语句不在查询缓存中，就会继续后面的执行阶段，进行查询。查询完成后执行结果就会被存储到查询缓存中。 可以看到，如果命中查询缓存，MySQL不需要执行后面的复杂操作，就可以直接返回结果，这个效率会很高。&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;但是在大多数情况下，是不建议使用查询缓存的，为什么呢？因为查询缓存网往弊大于利。&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;   主要原因是因为查询缓存失效的概率非常大，为什么呢？因为每次只要对某一张表有更新操作，这个表上所有的查询缓存都会被清空。 因此可能你费劲把结果存起来之后，还没有用呢，一个更新语句就把缓存清空了。这样对于更新操作比较频繁的数据库来说，查询缓存的命中率会非常低。除非是一张静态的lookUp表，很长时间才会更新一次。比如系统配置表，行政区划表等表上的查询才会比较适合使用查询缓存。&lt;br&gt;\n   好在MySQL也提供这种“按需使用”的方式，你可以将参数query_cache_type设置为DEMAND，这样对于默认的SQL语句都不使用查询缓存。 而对于你确定要使用查询缓存的语句可以用SQL_CACHE 显式指定，像下面这个语句一样：&lt;/p&gt;\n&lt;pre&gt;&lt;code&gt;select SQL_CACHE * from T where ID=10；\n&lt;/code&gt;&lt;/pre&gt;\n&lt;ul&gt;\n&lt;li&gt;需要注意的是，MySQL8.0版本已经直接删除了查询缓存功能。&lt;/li&gt;\n&lt;/ul&gt;\n&lt;h2 id=\&#34;分析器\&#34;&gt;&lt;strong&gt;分析器&lt;/strong&gt;&lt;/h2&gt;\n&lt;p&gt;  如果没有命中查询缓存，就要开始真正执行SQL语句了，首先MySQL需要知道你要做什么，因此需要对MySQL语句做解析。&lt;br&gt;\n  分析器会现做“词法解析”，你输入的是由多个字符串和空格组成的一条SQL语句，MySQL需要识别出里面的字符串分别是什么，代表什么。&lt;/p&gt;\n&lt;p&gt;  MySQL 从你输入的&amp;quot;select&amp;quot;这个关键字识别出来，这是一个查询语句。它也要把字符串“T”识别成“表名 T”，把字符串“ID”识别成“列 ID”。&lt;br&gt;\n  做完了这些识别以后，就要做“语法分析”。根据词法分析的结果，语法分析器会根据语法规则，判断你输入的这个 SQL 语句是否满足 MySQL 语法。&lt;br&gt;\n  如果你的语句不对，就会收到“You have an error in your SQL syntax”的错误提醒，比如下面这个语句 select 少打了开头的字母“s”。&lt;/p&gt;\n&lt;pre&gt;&lt;code&gt;\nmysql&amp;gt; elect * from t where ID=1;\n\nERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &#39;elect * from t where ID=1&#39; at line 1\n&lt;/code&gt;&lt;/pre&gt;\n&lt;p&gt;一般语法错误会提示第一个出现错误的位置，所以你要关注的是紧接“use near”的内容。&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;&lt;a href=\&#34;https://tech.meituan.com/2018/05/20/sql-parser-used-in-mtdp.html\&#34;&gt;详细语法SQL解析流程，来自美团技术团队，点击跳转&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;\n&lt;h2 id=\&#34;优化器\&#34;&gt;&lt;strong&gt;优化器&lt;/strong&gt;&lt;/h2&gt;\n&lt;p&gt;  经过了分析器，MySQL 就知道你要做什么了。在开始执行之前，还要先经过优化器的处理。&lt;br&gt;\n  优化器是在表里面有多个索引的时候，决定使用哪个索引；或者在一个语句有多表关联（join）的时候，决定各个表的连接顺序。比如你执行下面这样的语句，这个语句是执行两个表的 join：&lt;/p&gt;\n&lt;pre&gt;&lt;code&gt;mysql&amp;gt; select * from t1 join t2 using(ID) where t1.c=10 and t2.d=20;\n&lt;/code&gt;&lt;/pre&gt;\n&lt;ul&gt;\n&lt;li&gt;既可以先从表 t1 里面取出 c=10 的记录的 ID 值，再根据 ID 值关联到表 t2，再判断 t2 里面 d 的值是否等于 20。&lt;/li&gt;\n&lt;li&gt;也可以先从表 t2 里面取出 d=20 的记录的 ID 值，再根据 ID 值关联到 t1，再判断 t1 里面 c 的值是否等于 10。&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;优化器阶段完成后，这个语句的执行方案就确定下来了，然后进入执行器阶段。如果你还有一些疑问，比如优化器是怎么选择索引的，有没有可能选择错等等，我会在后面的博客中单独展开说明优化器的内容。&lt;/p&gt;\n&lt;h2 id=\&#34;执行器\&#34;&gt;&lt;strong&gt;执行器&lt;/strong&gt;&lt;/h2&gt;\n&lt;p&gt;  MySQL 通过分析器知道了你要做什么，通过优化器知道了该怎么做，于是就进入了执行器阶段，开始执行语句。&lt;br&gt;\n  开始执行的时候，要先判断一下你对这个表 T 有没有执行查询的权限，如果没有，就会返回没有权限的错误，如下所示 (在工程实现上，如果命中查询缓存，会在查询缓存返回结果的时候，做权限验证。查询也会在优化器之前调用 precheck 验证权限)。&lt;/p&gt;\n&lt;pre&gt;&lt;code&gt;mysql&amp;gt; select * from T where ID=10;ERROR 1142 (42000): SELECT command denied to user &#39;b&#39;@&#39;localhost&#39; for table &#39;T&#39;\n&lt;/code&gt;&lt;/pre&gt;\n&lt;p&gt;  如果有权限，就打开表继续执行。打开表的时候，执行器就会根据表的引擎定义，去使用这个引擎提供的接口。&lt;br&gt;\n  比如我们这个例子中的表 T 中，ID 字段没有索引，那么执行器的执行流程是这样的：&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;调用 InnoDB 引擎接口取这个表的第一行，判断 ID 值是不是 10，如果不是则跳过，如果是则将这行存在结果集中；&lt;/li&gt;\n&lt;li&gt;调用引擎接口取“下一行”，重复相同的判断逻辑，直到取到这个表的最后一行。&lt;/li&gt;\n&lt;li&gt;执行器将上述遍历过程中所有满足条件的行组成的记录集作为结果集返回给客户端。&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;  至此，这个语句就执行完成了。对于有索引的表，执行的逻辑也差不多。第一次调用的是“取满足条件的第一行”这个接口，之后循环取“满足条件的下一行”这个接口，这些接口都是引擎中已经定义好的。&lt;br&gt;\n  你会在数据库的慢查询日志中看到一个 rows_examined 的字段，表示这个语句执行过程中扫描了多少行。这个值就是在执行器每次调用引擎获取数据行的时候累加的。&lt;br&gt;\n  在有些场景下，执行器调用一次，在引擎内部则扫描了多行，因此引擎扫描行数跟 rows_examined 并不是完全相同的。我们后面会专门有一篇文章来讲存储引擎的内部机制，里面会有详细的说明。&lt;/p&gt;\n&#34;,&#34;fileName&#34;:&#34;2020-04-18mysqlyi-sql-de-zhi-xing-liu-cheng&#34;,&#34;abstract&#34;:&#34;&#34;,&#34;title&#34;:&#34;[2020-04-18]MySQL（一）SQL的执行流程&#34;,&#34;tags&#34;:[],&#34;date&#34;:&#34;2020-04-18 22:28:24&#34;,&#34;dateFormat&#34;:&#34;2020-04-18&#34;,&#34;feature&#34;:&#34;&#34;,&#34;link&#34;:&#34;https://RookieYan.github.io/post/2020-04-18mysqlyi-sql-de-zhi-xing-liu-cheng/&#34;,&#34;hideInList&#34;:false,&#34;isTop&#34;:false,&#34;stats&#34;:{&#34;text&#34;:&#34;11 min read&#34;,&#34;time&#34;:645000,&#34;words&#34;:3028,&#34;minutes&#34;:11},&#34;description&#34;:&#34;  之前的由于不小心把所有的博客都删了，所以从0开始重新写吧。因为最近在看MySQL和MongoDB相关的，这篇就先从MySQL开始了.. 后续会继续补上MongoDB的内容..\n  这篇主要是讲一下MySQL的基础.. 包括语句的执行流程...&#34;,&#34;toc&#34;:&#34;&lt;ul class=\&#34;markdownIt-TOC\&#34;&gt;\n&lt;li&gt;\n&lt;ul&gt;\n&lt;li&gt;&lt;a href=\&#34;#%E8%BF%9E%E6%8E%A5%E5%99%A8\&#34;&gt;&lt;strong&gt;连接器&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;a href=\&#34;#%E6%9F%A5%E8%AF%A2%E7%BC%93%E5%AD%98\&#34;&gt;&lt;strong&gt;查询缓存&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;a href=\&#34;#%E5%88%86%E6%9E%90%E5%99%A8\&#34;&gt;&lt;strong&gt;分析器&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;a href=\&#34;#%E4%BC%98%E5%8C%96%E5%99%A8\&#34;&gt;&lt;strong&gt;优化器&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;a href=\&#34;#%E6%89%A7%E8%A1%8C%E5%99%A8\&#34;&gt;&lt;strong&gt;执行器&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/li&gt;\n&lt;/ul&gt;\n&#34;},{&#34;content&#34;:&#34;&lt;p&gt;  之前因为搭了一个Ngrok，被黑客扫到了，把电脑黑了。然后今天重装了系统，格式化了硬盘，一不小心把博客也都清了... 没办法...  回不去的就留在过去吧...  重新写....&lt;/p&gt;\n&lt;p&gt;  加油...&lt;/p&gt;\n&#34;,&#34;fileName&#34;:&#34;2020-04-11chong-xin-kai-shi&#34;,&#34;abstract&#34;:&#34;&#34;,&#34;title&#34;:&#34;[2020-04-11]重新开始&#34;,&#34;tags&#34;:[],&#34;date&#34;:&#34;2020-04-11 22:49:04&#34;,&#34;dateFormat&#34;:&#34;2020-04-11&#34;,&#34;feature&#34;:&#34;&#34;,&#34;link&#34;:&#34;https://RookieYan.github.io/post/2020-04-11chong-xin-kai-shi/&#34;,&#34;hideInList&#34;:false,&#34;isTop&#34;:false,&#34;stats&#34;:{&#34;text&#34;:&#34;1 min read&#34;,&#34;time&#34;:12000,&#34;words&#34;:64,&#34;minutes&#34;:1},&#34;description&#34;:&#34;  之前因为搭了一个Ngrok，被黑客扫到了，把电脑黑了。然后今天重装了系统，格式化了硬盘，一不小心把博客也都清了... 没办法...  回不去的就留在过去吧...  重新写....\n  加油...\n&#34;,&#34;toc&#34;:&#34;&#34;}]";
+  // var json = escape.substr(1, escape.length - 2);
+  // var datas = json.split(',');
+  // for (let i=0; i < datas.length; i++) {
+  //   let item = datas[i];
+  //   let attrs = item.split('34;:&#34')
+  //   debugger
+  //   console.log(datas[i])
+  // }
+  let escapeMap = new Map();
+  escapeMap.set('&#34;', '"');
+  escapeMap.set('&gt;', '>');
+  escapeMap.set('&#39;', "'");
+  escapeMap.set('&lt;', '<');
+  escapeMap.set('&quot;', '"');
+  escapeMap.set('&amp;', '&');
+</script> -->
+
+<script src="/media/js/mouse/peace.js"></script>
+
+
+
 </html>
