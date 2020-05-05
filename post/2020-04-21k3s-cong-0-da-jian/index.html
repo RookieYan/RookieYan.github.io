@@ -7,7 +7,7 @@
 <meta name="description" content="闫。">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link rel="shortcut icon" href="https://RookieYan.github.io/favicon.ico?v=1588359719433">
+<link rel="shortcut icon" href="https://RookieYan.github.io/favicon.ico?v=1588697394157">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
@@ -236,6 +236,25 @@ CMD java -jar /cloud-data-center.jar &gt; cloud-portal.log.out 2&gt;&amp;1
 <ol start="7">
 <li>编写脚本</li>
 </ol>
+<pre><code>#!/bin/bash
+docker_registry=39.101.204.XXX:5656
+kubectl create secret docker-registry registry-pull-secret --docker-server=$docker_registry --docker-username=user1 --docker-password=XXX --docker-email=XXX@qq.com -n kube-system
+service=&quot;cloud-data-center&quot;
+current_dir=$(pwd)
+cd /data/cloud-data-center
+echo ${current_dir}
+# git checkout devops
+# -b devops ssh://yanjianxun@47.93.249.XXX:29418/~admin/cloud-data-center.git
+git pull
+mvn -f /data/cloud-data-center/pom.xml clean
+mvn -f /data/cloud-data-center/pom.xml install
+image_name=$docker_registry/k3s/${service}:$(date +%F-%H-%M-%S)
+sudo docker build -t ${image_name} .
+sudo docker push ${image_name}
+echo ${current_dir}
+sed -i -r &quot;s#(image: )(.*)#\1$image_name#&quot; ${current_dir}/${service}/${service}.yaml
+kubectl apply -f ${current_dir}/${service}/${service}.yaml
+</code></pre>
 <h2 id="5-安装harbor"><strong>5.  安装harbor</strong></h2>
 <ol>
 <li>下载，解压 (如果自家网络好，可以下载下来再上传到服务器)</li>
@@ -262,8 +281,16 @@ tar  -zxf  harbor-offline-installer-v1.10.2.tgz
 docker.service 中添加配置 -&gt; vim /usr/lib/systemd/system/docker.service 
         中 ExecStart= 后面添加上 --insecure-registry=39.101.174.47:5656
 </code></pre>
-<p><img src="https://RookieYan.github.io/post-images/1587667006811.png" alt="" loading="lazy"><br>
-5.  重启docker</p>
+<figure data-type="image" tabindex="3"><img src="https://RookieYan.github.io/post-images/1587667006811.png" alt="" loading="lazy"></figure>
+<p>这里如果这么配置，还是pull不下来镜像的话，就在 vim /etc/docker/daemon.json  这个目录下创建文件</p>
+<pre><code>{
+    &quot;insecure-registries&quot;: [&quot;0.0.0.0/0&quot;]
+}
+</code></pre>
+<p>这样写就可以了。 （原因好像是因为 docker是https协议 而我们私有harbor是http导致的。）</p>
+<ol start="5">
+<li>重启docker</li>
+</ol>
 <pre><code>systemctl daemon-reload
 systemctl restart docker
 </code></pre>
@@ -364,19 +391,17 @@ spec:
 <li>脚本</li>
 </ol>
 <pre><code>#!/bin/bash
-docker_registry=39.101.174.47:5656
-kubectl create secret docker-registry registry-pull-secret --docker-server=$docker_registry --docker-username=ceshi --docker-password=Cheshi123456 --docker-email=ceshi@123.com -n kube-system
-#service_list=&quot;cloud-data-center&quot;
-#service_list=${1:-${service_list}}
+docker_registry=39.101.204.XXX:5656
+kubectl create secret docker-registry registry-pull-secret --docker-server=$docker_registry --docker-username=user1 --docker-password=XXX --docker-email=XXX@qq.com -n kube-system
 service=&quot;cloud-data-center&quot;
 current_dir=$(pwd)
-cd /data/code/cloud-data-center/cloud-data-center
+cd /data/cloud-data-center
 echo ${current_dir}
 # git checkout devops
-# -b devops ssh://yanjianxun@47.93.249.207:29418/~admin/cloud-data-center.git
+# -b devops ssh://yanjianxun@47.93.249.XXX:29418/~admin/cloud-data-center.git
 git pull
-mvn -f XX/XX/pom.xml clean
-mvn -f XX/XX/pom.xml install
+mvn -f /data/cloud-data-center/pom.xml clean
+mvn -f /data/cloud-data-center/pom.xml install
 image_name=$docker_registry/k3s/${service}:$(date +%F-%H-%M-%S)
 sudo docker build -t ${image_name} .
 sudo docker push ${image_name}
@@ -384,7 +409,28 @@ echo ${current_dir}
 sed -i -r &quot;s#(image: )(.*)#\1$image_name#&quot; ${current_dir}/${service}/${service}.yaml
 kubectl apply -f ${current_dir}/${service}/${service}.yaml
 </code></pre>
-<h2 id="7-安装k8s"><strong>7.  安装K8S</strong></h2>
+<ol start="5">
+<li>可以执行脚本</li>
+<li>通过命令查看 pod状态</li>
+</ol>
+<pre><code>kubectl get -n kube-system pod   // -n 代表的是 namespace
+</code></pre>
+<ol start="7">
+<li>如果容器运行出问题，可以到对应目录下（yaml文件同级下执行删除操作）</li>
+</ol>
+<pre><code>kubectl delete -f cloud-data-center.yaml
+</code></pre>
+<ol start="8">
+<li>可以通过以下命令 进入到pod内部查看日志之类的</li>
+</ol>
+<pre><code>kubectl exec -it cloud-data-center-7d87586985-ftdgj -n kube-system -- /bin/sh
+</code></pre>
+<ol start="9">
+<li>如果一切都正常的话 你应该可以看到 pod在running</li>
+</ol>
+<pre><code>kubectl get -n kube-system svc,pod   这个命令 可以看到你启动的容器在pod中映射出去的端口号，可以通过这个端口号访问容器内的接口和服务
+</code></pre>
+<figure data-type="image" tabindex="4"><img src="https://RookieYan.github.io/post-images/1588516333372.png" alt="" loading="lazy"></figure>
 
             </div>
           </article>
@@ -408,7 +454,7 @@ kubectl apply -f ${current_dir}/${service}/${service}.yaml
 
       <div class="sm-12 md-4 col sidebar">
   <div class="paper info-container">
-    <img src="https://RookieYan.github.io/images/avatar.png?v=1588359719433" class="no-responsive avatar">
+    <img src="https://RookieYan.github.io/images/avatar.png?v=1588697394157" class="no-responsive avatar">
     <div class="text-muted">闫。</div>
     <div class="social-container">
       
@@ -430,6 +476,18 @@ kubectl apply -f ${current_dir}/${service}/${service}.yaml
     </div>
     <div class="row">
       <ul>
+        
+          
+            <li>
+              <a href="https://RookieYan.github.io/post/2020-05-06mysqlsan-shi-wu-ge-chi-ji-bie/"> [2020-05-06]MySQL（三）事务隔离级别</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://RookieYan.github.io/post/2020-05-05github-cha-zhao-kai-yuan-xiang-mu-xiao-ji-qiao/"> [2020-05-05]GitHub查找开源项目小技巧</a>
+            </li>
+          
         
           
             <li>
@@ -464,7 +522,7 @@ kubectl apply -f ${current_dir}/${service}/${service}.yaml
     </div>
     <div class="row">
       
-        <a href="https://RookieYan.github.io/tag/A0v8BAYSM/" class="badge success">
+        <a href="https://RookieYan.github.io/tag/A0v8BAYSM/" class="badge warning">
           MySQL
         </a>
       
@@ -472,7 +530,7 @@ kubectl apply -f ${current_dir}/${service}/${service}.yaml
           K3S
         </a>
       
-        <a href="https://RookieYan.github.io/tag/w5-hCCJiF/" class="badge secondary">
+        <a href="https://RookieYan.github.io/tag/w5-hCCJiF/" class="badge ">
           心灵XX汤
         </a>
       

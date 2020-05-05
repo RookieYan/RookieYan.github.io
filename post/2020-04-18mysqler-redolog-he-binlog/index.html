@@ -7,7 +7,7 @@
 <meta name="description" content="闫。">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link rel="shortcut icon" href="https://RookieYan.github.io/favicon.ico?v=1588359719433">
+<link rel="shortcut icon" href="https://RookieYan.github.io/favicon.ico?v=1588697394157">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
@@ -118,7 +118,60 @@
 <p>  write pos 和 checkpoint 之间的绿色部分是“小黑板”上还空着的部分，可以用来记录新的操作。如果 write pos 追上 checkpoint，表示“小黑板”满了，这时候不能再执行新的更新，得停下来先擦掉一些记录，把 checkpoint 推进一下。</p>
 <p>  至此，有了redolog，InnoDB就可以保证数据在发生数据库异常重启的时候，之前提交的数据都不会丢失，这个能力称为<strong>crash-safe</strong>。</p>
 <h2 id="2-bin-log"><strong>2. bin log</strong></h2>
-<pre><code>未完待续....
+<p>  前面说过，从整体上来看MySQL分为两部分，一部分是Server层，主要负责功能层面的事情。还有一部分是数据引擎层，主要负责存储相关的事情。上面我们说到的redo log是InnoDB引擎特有的日志，而我们MySQL的Server层也有自己的日志，称为binlog。</p>
+<p>  为什么会有两种日志呢？主要是因为最初MySQL的默认引擎是MyISAM，而MyISAM又没有crash-safe的能力，binlog只能用于归档。而InnoDB是另外一家公司以插件的形式引入到MySQL中，既然只依靠binlog没有办法实现crash-safe 那就只好使用redolog实现crash-safe了。</p>
+<p>  这两个日志有以下三点不一样：</p>
+<ul>
+<li>redo log 是 InnoDB 引擎特有的；binlog 是 MySQL 的 Server 层实现的，所有引擎都可以使用。</li>
+<li>redo log 是物理日志，记录的是“在某个数据页上做了什么修改”；binlog 是逻辑日志，记录的是这个语句的原始逻辑，比如“给 ID=2 这一行的 c 字段加 1 ”。 也就是说 redolog记录的是具体在哪里做了什么修改，而binlog记录的是SQL语句。</li>
+<li>redo log 是循环写的，大小固定，会用完。binlog是可以追加写的，如果一个文件写满了，会生成一个新的文件继续写，不会覆盖掉前面的文件。</li>
+</ul>
+<p>执行器和 InnoDB 引擎在执行这个简单的 update 语句时的内部流程如下：</p>
+<ol>
+<li>执行器先找引擎取 ID=2 这一行。ID 是主键，引擎直接用树搜索找到这一行。如果 ID=2 这一行所在的数据页本来就在内存中，就直接返回给执行器；否则，需要先从磁盘读入内存，然后再返回。</li>
+<li>执行器拿到引擎给的行数据，把这个值加上 1，比如原来是 N，现在就是 N+1，得到新的一行数据，再调用引擎接口写入这行新数据。</li>
+<li>引擎将这行新数据更新到内存中，同时将这个更新操作记录到 redo log 里面，此时 redo log 处于 prepare 状态。然后告知执行器执行完成了，随时可以提交事务。</li>
+<li>执行器生成这个操作的 binlog，并把 binlog 写入磁盘。</li>
+<li>执行器调用引擎的提交事务接口，引擎把刚刚写入的 redo log 改成提交（commit）状态，更新完成。</li>
+</ol>
+<p>更新语句的执行流程图：<br>
+<img src="https://RookieYan.github.io/post-images/1588691526032.png" alt="" loading="lazy"><br>
+其中带颜色的部分都是在执行器中执行的。 其他的都是在InnoDB内部执行的。</p>
+<p>由图上可以看到，最后三步把redolog的写入分成了两部分，一部分prepare和commit，这就是两阶段提交。</p>
+<h2 id="3-两阶段提交"><strong>3. 两阶段提交</strong></h2>
+<p>  那么为什么要有两阶段提交呢？</p>
+<p>  回归到我们最初说到的那个话题上，<strong>怎么让MySQL恢复到半个月内任意一个时间点的状态？</strong></p>
+<p>  前面我们说了，binlog是采用追加写的方式，记录MySQL的所有逻辑操作，如果说就可以恢复到半个月内任意一秒的数据的话，那么至少在备份系统中一定保存了这半个月的所有binlog，同时数据库定期做了全库的整库备份。这里的定期，可以是一天一次，也可以是一周一次。</p>
+<p>  当需要恢复到指定的某一秒时，比如某天下午两点发现中午十二点有一次误删表，需要找回数据，那你可以这么做：</p>
+<ul>
+<li>先找到最近时间点的整库备份，如果运气比较好，可能是昨天晚上凌晨12点的备份数据，然后把这个备份数据恢复到临时库中。</li>
+<li>然后，从备份的时间点开始，将备份的 binlog 依次取出来，重放到中午误删表之前的那个时刻。</li>
+</ul>
+<p>  这样你的临时库就和误删之前的线上库一样了，然后就可以把表数据从临时库中取出来，按需放到线上库中。</p>
+<p>  说回两阶段提交，由于redolog和binlog是两个独立的逻辑，如果没有两阶段提交，就是要么先写redolog再写binlog。 要么就是先写binlog再写redolog。我们思考一下会出现什么问题。</p>
+<p>  仍然用前面的 update 语句来做例子。假设当前 ID=2 的行，字段 c 的值是 0，再假设执行 update 语句过程中在写完第一个日志后，第二个日志还没有写完期间发生了 crash，会出现什么情况呢？</p>
+<ol>
+<li><strong>先写redolog后写binlog</strong>，假设在 redo log 写完，binlog 还没有写完的时候，MySQL 进程异常重启。由于我们前面说过的，redo log 写完之后，系统即使崩溃，仍然能够把数据恢复回来，所以恢复后这一行 c 的值是 1。但是由于 binlog 没写完就 crash 了，这时候 binlog 里面就没有记录这个语句。因此，之后备份日志的时候，存起来的 binlog 里面就没有这条语句。然后你会发现，如果需要用这个 binlog 来恢复临时库的话，由于这个语句的 binlog 丢失，这个临时库就会少了这一次更新，恢复出来的这一行 c 的值就是 0，与原库的值不同。</li>
+<li><strong>先写binlog后写redolog</strong>，如果在 binlog 写完之后 crash，由于 redo log 还没写，崩溃恢复以后这个事务无效，所以这一行 c 的值是 0。但是 binlog 里面已经记录了“把 c 从 0 改成 1”这个日志。所以，在之后用 binlog 来恢复的时候就多了一个事务出来，恢复出来的这一行 c 的值就是 1，与原库的值不同。</li>
+</ol>
+<p>可以看到，如果不使用“两阶段提交”，那么数据库的状态就有可能和用它的日志恢复出来的库的状态不一致。你可能会说，这个概率是不是很低，平时也没有什么动不动就需要恢复临时库的场景呀？其实不是的，不只是误操作后需要用这个过程来恢复数据。当你需要扩容的时候，也就是需要再多搭建一些备库来增加系统的读能力的时候，现在常见的做法也是用全量备份加上应用 binlog 来实现的，这个“不一致”就会导致你的线上出现主从数据库不一致的情况。简单说，redo log 和 binlog 都可以用于表示事务的提交状态，而两阶段提交就是让这两个状态保持逻辑上的一致。</p>
+<p><strong>总结：</strong></p>
+<pre><code>使用两阶段提交，在不同时间点崩溃恢复的逻辑:
+1.单独依靠redologo无法做到指定某一点的恢复，是不是因为redologo是循环写的，如果要恢复的那一时刻被擦掉了，就无法知道这点的数据变动轨迹，而binlog是追加的方式，在文件完整的前提下，数据的变动轨迹都可以知晓？
+2. 最后三步是 
+   ①引擎写redolog，并处于prepare状态 
+   ②执行器写binlog，成功后，发送commit
+   ③引擎刚写入的redolog改变为commit状态
+  如果crash发生后 redolog =prepare binlog没有对应写入记录，则回滚
+  如果crash发生后 redolog =prepare binlog有对应写入记录，则提交
+感觉有点像 1 &amp;&amp; 1= 1 1&amp;&amp;0=0 0&amp;&amp;1=0
+3.binlog模式 ①记录sql语句 ②记录更新前后的行 一般是用哪种模式？
+</code></pre>
+<pre><code>redolog是innodb引擎特有的，为了WAL而存在,更新操作是先写入redolog，之后异步写到数据的磁盘文件中。
+假设现在前后更新了2条记录并且都写入binlog后突然宕机，在服务重启后，如果只根据binlog是无法获知当前磁盘上的数据文件中那2条记录的状态是否是最新的（除非从头开始跑一遍binlog），
+所以一定要借助redolog才能知道宕机前有哪些记录还没更新到磁盘。
+如果存储引擎不支持WAL，也不支持事务回滚，每次更新都是直接更新到数据磁盘中，这应该不需要考虑宕机的问题。
+因为WAL的异步写入存在，所以需要解决宕机的恢复问题，需要redolog的协助，而redolog需要和binlog保持状态一致，这又要依靠两阶段提交。
 </code></pre>
 
             </div>
@@ -143,7 +196,7 @@
 
       <div class="sm-12 md-4 col sidebar">
   <div class="paper info-container">
-    <img src="https://RookieYan.github.io/images/avatar.png?v=1588359719433" class="no-responsive avatar">
+    <img src="https://RookieYan.github.io/images/avatar.png?v=1588697394157" class="no-responsive avatar">
     <div class="text-muted">闫。</div>
     <div class="social-container">
       
@@ -165,6 +218,18 @@
     </div>
     <div class="row">
       <ul>
+        
+          
+            <li>
+              <a href="https://RookieYan.github.io/post/2020-05-06mysqlsan-shi-wu-ge-chi-ji-bie/"> [2020-05-06]MySQL（三）事务隔离级别</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://RookieYan.github.io/post/2020-05-05github-cha-zhao-kai-yuan-xiang-mu-xiao-ji-qiao/"> [2020-05-05]GitHub查找开源项目小技巧</a>
+            </li>
+          
         
           
             <li>
@@ -203,11 +268,11 @@
           MySQL
         </a>
       
-        <a href="https://RookieYan.github.io/tag/HAPk8628r/" class="badge secondary">
+        <a href="https://RookieYan.github.io/tag/HAPk8628r/" class="badge success">
           K3S
         </a>
       
-        <a href="https://RookieYan.github.io/tag/w5-hCCJiF/" class="badge success">
+        <a href="https://RookieYan.github.io/tag/w5-hCCJiF/" class="badge ">
           心灵XX汤
         </a>
       
